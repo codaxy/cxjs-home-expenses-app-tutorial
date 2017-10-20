@@ -1,0 +1,8 @@
+$cx-include-global-rules: true;
+
+@import "~cx-theme-material/src/variables";
+@import "~cx-theme-material/src/index";
+
+@import "components/index";
+@import "layout/index";
+@import "routes/index";
