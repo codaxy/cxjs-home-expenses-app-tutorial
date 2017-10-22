@@ -26,9 +26,9 @@ export default <cx>
 
     <h2 putInto="header">Dashboard</h2>
 
-    <FlexCol spacing="large">
+    <FlexCol spacing="large" controller={Controller}>
 
-        <Section mod="card" controller={Controller}>
+        <Section mod="card">
             <FlexRow>
                 <MonthField style="min-width: 192px; vertical-align: top;"
                     range
@@ -40,6 +40,8 @@ export default <cx>
                 <div style="flex: 1;"/>
             </FlexRow>
         </Section>
+
+        <ColorMap/>
 
         <Section mod="card"
             style="min-width: 274px"
@@ -61,31 +63,32 @@ export default <cx>
                         }}
                     >
                         <Gridlines xAxis={false}/>
-                        <Repeater records={bind("$page.histogram")} recordName="$point" keyField="id">
+                        <Repeater records={bind("$page.monthlyData")} recordName="$point">
                             <Column
-                                width={bind('$point.width')}
-                                offset={expr("{$point.width}/2")}
+                                size={30*24*60*60*1000}
                                 x={bind("$point.date")}
                                 y={bind("$point.total")}
-                                tooltip={tpl("{$point.total:n;2}")}
+                                tooltip={tpl("Total: {$point.total:n;2}")}
+                                style={{
+                                    opacity: { expr: '{$point.date} >= {range.from} && {$point.date} < {range.to} ? 1 : 0.2' }
+                                }}
                             />
-                        </Repeater>
-                        <Repeater records={bind("$page.histogram")} recordName="$point" keyField="id">
                             <Column
-                                width={bind('$point.width')}
-                                offset={expr("{$point.width}/2")}
+                                size={30*24*60*60*1000}
                                 x={bind("$point.date")}
-                                y={bind("$point.subCategory")}
-                                tooltip={tpl("{$point.subCategory:n;2}")}
-                                colorName={bind("$point.categoryName")}
-                                colorMap="pie"/>
+                                y={bind("$point.catTotal")}
+                                name={computable('$page.selectedCatId', catId => categoryNames[catId])}
+                                colorMap="pie"
+                                tooltip={tpl("{$point.catTotal:n;2}")}
+                                style={{
+                                    opacity: { expr: '{$point.date} >= {range.from} && {$point.date} < {range.to} ? 1 : 0.2' }
+                                }}
+                            />
                         </Repeater>
                     </Chart>
                 </Svg>
             </FlexCol>
         </Section>
-
-        <ColorMap/>
 
         <Legend/>
 

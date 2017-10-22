@@ -30,24 +30,20 @@ export default <cx>
          <h1>Home Expenses</h1>
          <dl>
             <dt>
-               Budget
-            </dt>
-            <dd>
                <Link href="~/dashboard" match="prefix" url={bind("url")}>
                   Dashboard
                </Link>
-               <Link href="~/entry/expense" url={bind("url")}>
+            </dt>
+            <dt>
+               <Link href="~/entry/new" url={bind("url")}>
                   Add Expense
                </Link>
-               <Link href="~/entry/income" url={bind("url")}>
-                  Add Income
-               </Link>
+            </dt>
+            <dt>
                <Link href="~/log" url={bind("url")}>
                   Log
                </Link>
-               <Link href="~/settings" url={bind("url")} text="Settings" />
-               <ContentPlaceholder name="sidebar"/>
-            </dd>
+            </dt>
          </dl>
       </aside>
    </div>

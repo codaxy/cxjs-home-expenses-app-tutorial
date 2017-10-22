@@ -12,16 +12,34 @@ export default class extends Controller {
          to: new Date(currentYear + 1, 0, 1).toISOString()
       });
 
-       this.addComputable('$page.entries', ['entries', 'range'], (entries, range) => {
+       this.addTrigger('$page.entries', ['entries', 'range', '$page.selectedCatId'], (entries, range, selCatId) => {
            let from = new Date(range.from);
            let to = new Date(range.to);
+           let monthly = {};
 
-           return (entries || []).filter(e => {
+           let activeEntries = (entries || []).filter(e => {
                // filter by date
                let date = new Date(e.date);
+               let monthKey = date.getFullYear() * 100 + date.getMonth();
+               let m = monthly[monthKey];
+               if (!m)
+                   m = monthly[monthKey] = {
+                       total: 0,
+                       catTotal: 0,
+                       date: new Date(date.getFullYear(), date.getMonth(), 1).toISOString()
+                   };
+               m.total += e.amount;
+               if (e.categoryId == selCatId)
+                   m.catTotal += e.amount;
+
                return (date >= from && date < to);
            });
-       });
+
+           let monthlyData = Object.keys(monthly).map(m=>monthly[m]);
+
+           this.store.set('$page.entries', activeEntries);
+           this.store.set('$page.monthlyData', monthlyData);
+       }, true);
 
        this.addComputable('$page.pie', ['$page.entries'], (entries) => {
            let category = {};
