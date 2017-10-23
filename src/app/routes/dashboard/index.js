@@ -19,7 +19,7 @@ import {
 
 import {Svg, Text as SvgText} from "cx/svg";
 
-import {categoryNames} from '../../data/categories';
+import {categories, categoryNames} from '../../data/categories';
 
 
 export default <cx>
@@ -41,7 +41,7 @@ export default <cx>
             </FlexRow>
         </Section>
 
-        <ColorMap/>
+        <ColorMap names={expr("{$page.pie}.map(x=>x.name)")} />
 
         <Section mod="card"
             style="min-width: 274px"
@@ -65,7 +65,8 @@ export default <cx>
                         <Gridlines xAxis={false}/>
                         <Repeater records={bind("$page.monthlyData")} recordName="$point">
                             <Column
-                                size={30*24*60*60*1000}
+                                size={bind('$point.width')}
+                                offset={expr('{$point.width}/2')}
                                 x={bind("$point.date")}
                                 y={bind("$point.total")}
                                 tooltip={tpl("Total: {$point.total:n;2}")}
@@ -74,10 +75,11 @@ export default <cx>
                                 }}
                             />
                             <Column
-                                size={30*24*60*60*1000}
+                                size={bind('$point.width')}
+                                offset={expr('{$point.width}/2')}
                                 x={bind("$point.date")}
                                 y={bind("$point.catTotal")}
-                                name={computable('$page.selectedCatId', catId => categoryNames[catId])}
+                                colorName={computable('$page.selectedCatId', catId => categoryNames[catId])}
                                 colorMap="pie"
                                 tooltip={tpl("{$point.catTotal:n;2}")}
                                 style={{
@@ -153,16 +155,19 @@ export default <cx>
                         width: "100%",
                         minHeight: {expr: "40 + {$page.pie.length} * 25"}
                     }}>
-                        <Chart offset="20 -20 -20 130" axes={{
-                            x: {type: NumericAxis, snapToTicks: 0},
-                            y: {
-                                type: CategoryAxis,
-                                vertical: true,
-                                snapToTicks: 1,
-                                inverted: true,
-                                names: categoryNames
-                            }
-                        }}>
+                        <Chart
+                            offset="20 -20 -20 100"
+                            axes={{
+                                x: {type: NumericAxis, snapToTicks: 0},
+                                y: {
+                                    type: CategoryAxis,
+                                    vertical: true,
+                                    snapToTicks: 1,
+                                    inverted: true,
+                                    names: categoryNames
+                                }
+                            }}
+                        >
                             <Gridlines yAxis={false}/>
                             <Repeater
                                 records={bind("$page.pie")}

@@ -2,68 +2,82 @@ import {
     HtmlElement,
     Section,
     NumberField,
-    Repeater,
     Button,
     DateField,
     LookupField,
+    TextField,
     PureContainer,
+    ValidationGroup,
     Icon,
     FlexRow,
+    Repeater,
     FlexCol
 } from 'cx/widgets';
 import {bind, expr, LabelsTopLayout} from 'cx/ui';
 
 import Controller from './Controller';
-
-import {categories} from '../../data/categories';
+import {categories} from "../../data/categories";
 
 export default <cx>
-    <Section mod="card" controller={Controller} title={expr("{$route.type}==='income' ? 'Add Income' : 'Add Expense'")}>
-        <Repeater records={bind('$page.categories')}>
-            <Button
-                text={bind("$record.name")}
-                onClick="selectCategory"
-                pressed={expr("{$record.id}=={$page.activeCategoryId}")}
-            />
-        </Repeater>
-        <FlexCol if={expr('{$page.entries.length} > 0')}>
-            <DateField label="Date" value={bind("$page.date")} showClear={false} segment='date' />
-
-            <Repeater records={bind("$page.entries")} keyField="id">
-                <div>
-                    <NumberField
-                        value={bind("$record.amount")}
-                        label={bind("$record.label")}
-                        format="currency;;2"
-                        placeholder="$"
-                    />
-                    <Button icon="add" mod="hollow" if={expr("{$record.amount} > 0")} onClick="addEntry" />
+    <h2 putInto="header" if={expr('{$route.id} == "new"')}>Add Entry</h2>
+    <h2 putInto="header" if={expr('{$route.id} != "new"')}>Edit Entry</h2>
+    <Section
+        mod="card"
+        controller={Controller}
+    >
+        <FlexRow visible={expr("!{$page.entry.categoryId}")} wrap spacing>
+            <Repeater records={categories}>
+                <div class="category" onClick="selectCategory">
+                    <span text:tpl="{$record.name}"/>
+                    <img src:tpl="~/assets/category/{$record.name:lowercase}.svg" />
                 </div>
             </Repeater>
+        </FlexRow>
+        <ValidationGroup
+            valid={bind("$page.valid")}
+            visible={expr("!!{$page.entry.categoryId}")}
+        >
+            <FlexCol>
+                <DateField
+                    label="Date"
+                    value={bind("$page.entry.date")}
+                    required
+                    autoFocus
+                />
 
-            <LookupField
-                label="Occurence"
-                value={bind('$page.repeat', 0)}
-                optionIdField="occurence"
-                options={bind('$page.occurence')} icon="refresh"
-                showClear={false} />
+                <NumberField
+                    value={bind("$page.entry.amount")}
+                    label="Amount"
+                    format="currency;;2"
+                    placeholder="$"
+                    required
+                />
 
-            <DateField if={expr('{$page.repeat} !== "once"')}
-                label="Until"
-                value={bind('$page.until')}
-                minValue={bind('$page.date')}
-                required
-                minExclusive
-                showClear={false}
-                segment='date' />
+                <LookupField
+                    value={bind('$page.entry.categoryId')}
+                    options={categories}
+                    optionTextField="name"
+                    label="Category"
+                    required
+                />
 
-            <br />
-            
-            <Button mod="primary"
-                style="align-self: flex-start;"
-                onClick="save"
-                disabled={expr('!{$page.valid}')}
-                text="Save" />
-        </FlexCol>
+                <TextField
+                    value={bind('$page.entry.description')}
+                    label="Description"
+                    style="width: 100%; max-width: 500px"
+                />
+
+                <br/>
+
+                <Button
+                    mod="primary"
+                    style="align-self: flex-start;"
+                    onClick="save"
+                    disabled={expr('!{$page.valid}')}
+                    text="Save"
+                />
+
+            </FlexCol>
+        </ValidationGroup>
     </Section>
 </cx>

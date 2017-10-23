@@ -3,6 +3,11 @@ $cx-include-global-rules: true;
 @import "~cx-theme-material/src/variables";
 @import "~cx-theme-material/src/index";
 
+//should be fixed in CxJS
+.cxb-button {
+  vertical-align: top;
+}
+
 @import "components/index";
 @import "layout/index";
 @import "routes/index";

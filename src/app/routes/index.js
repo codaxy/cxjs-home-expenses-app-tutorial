@@ -22,7 +22,7 @@ export default <cx>
                     redirect="~/log"
             />
 
-            <Route route="~/entry/:type" url={bind("url")}>
+            <Route route="~/entry/:id" url={bind("url")}>
                 <Entry />
             </Route>
 

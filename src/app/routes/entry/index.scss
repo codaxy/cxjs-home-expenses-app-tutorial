@@ -1,1 +1,20 @@
 
+.category {
+  width: 150px;
+  height: 150px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  span {
+    display: block;
+    margin-bottom: 5px;
+  }
+}

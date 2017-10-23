@@ -1,4 +1,4 @@
-import {HtmlElement, Grid, Button, Section} from 'cx/widgets';
+import {HtmlElement, Grid, Button, LinkButton, Section} from 'cx/widgets';
 import {computable, bind} from 'cx/ui';
 
 import Controller from './Controller';
@@ -40,7 +40,7 @@ export default <cx>
                 {
                     field: 'amount',
                     header: 'Amount',
-                    format: "currency",
+                    format: "currency;;2",
                     align: 'right',
                     sortable: true
                 },
@@ -49,9 +49,9 @@ export default <cx>
                     header: 'Actions',
                     align: 'center',
                     children: <cx>
-                        <Button mod="hollow">
+                        <LinkButton mod="hollow" href:tpl="~/entry/{$record.id}">
                             Edit
-                        </Button>
+                        </LinkButton>
                         <Button mod="hollow">
                             Remove
                         </Button>

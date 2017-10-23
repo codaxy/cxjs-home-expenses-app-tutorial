@@ -21,7 +21,7 @@
   "homepage": "https://github.com/codaxy/cxjs-home-budget-app-tutorial#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "cx": "^17.10.8",
+    "cx": "^17.10.9",
     "cx-react": "^17.10.0",
     "cx-theme-material": "^17.10.0",
     "react": "^16.0.0",
