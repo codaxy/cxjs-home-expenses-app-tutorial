@@ -1,5 +1,5 @@
 import { Store } from 'cx/data';
-import { Url, History, Widget, startAppLoop } from 'cx/ui';
+import { Url, History, Widget, startAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
 import { Timing, Debug } from 'cx/util';
 import {Tooltip, enableTooltips} from 'cx/widgets';
 //css
@@ -10,6 +10,7 @@ import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-them
 enableMaterialLabelPlacement();
 enableMaterialHelpPlacement();
 enableTooltips();
+enableCultureSensitiveFormatting();
 Tooltip.prototype.touchBehavior = 'ignore';
 
 //store
