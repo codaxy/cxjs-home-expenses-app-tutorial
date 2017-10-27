@@ -7,7 +7,7 @@ TODO
 
 ## Tutorial
 
-* [Introduction](tutorial/Article1.md) 
+* [Introduction](tutorial/introduction.md) 
     * What are we going to build
     * Data model
     * Fake data
