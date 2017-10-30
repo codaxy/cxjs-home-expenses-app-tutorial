@@ -50,7 +50,7 @@ export default <cx>
                 <Heading level={3}>Timeline</Heading>
                 <div
                     style="margin-left: auto"
-                    text:tpl="TOTAL: {$page.total:currency}"
+                    text:tpl="TOTAL: {$page.total:currency;usd;2}"
                 />
             </FlexRow>
             <FlexCol>
@@ -103,7 +103,7 @@ export default <cx>
                 <FlexRow putInto="header" align="center">
                     <Heading
                         level={3}
-                        text:tpl="TOTAL: {$page.total:currency}"
+                        text:tpl="TOTAL: {$page.total:currency;usd;2}"
                     />
                     <Button
                         style="margin-left: auto"
