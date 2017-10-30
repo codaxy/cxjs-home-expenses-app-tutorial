@@ -1,4 +1,4 @@
-import { Controller } from 'cx/ui';
+import { Controller, History } from 'cx/ui';
 import { append, updateArray } from 'cx/data';
 import uid from 'uid';
 
@@ -37,11 +37,15 @@ export default class extends Controller {
         }
         else {
             this.store.update('entries', updateArray, e => entry, e => e.id == id);
+            History.pushState(null, '', '~/log');
         }
     }
 
     back() {
-        this.store.delete('$page.entry.categoryId');
+        let id = this.store.get('$route.id');
+        if (id == 'new')
+            this.store.delete('$page.entry.categoryId');
+        else window.history.back();
     }
 
     selectCategory(e, {store}) {

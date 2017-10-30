@@ -1,5 +1,8 @@
 import {HtmlElement, Grid, Button, LinkButton, Section} from 'cx/widgets';
 import {computable, bind} from 'cx/ui';
+import {enableMsgBoxAlerts} from 'cx/widgets';
+
+enableMsgBoxAlerts();
 
 import Controller from './Controller';
 
@@ -52,7 +55,9 @@ export default <cx>
                         <LinkButton mod="hollow" href:tpl="~/entry/{$record.id}">
                             Edit
                         </LinkButton>
-                        <Button mod="hollow">
+                        <Button mod="hollow" 
+                            onClick="remove"
+                            confirm="Are you sure you want to delete this entry?">
                             Remove
                         </Button>
                     </cx>
