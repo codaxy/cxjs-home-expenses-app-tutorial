@@ -13,7 +13,7 @@ import {
     Repeater,
     FlexCol
 } from 'cx/widgets';
-import {bind, expr, LabelsTopLayout} from 'cx/ui';
+import {bind, expr, computable, LabelsTopLayout} from 'cx/ui';
 
 import Controller from './Controller';
 import {categories} from "../../data/categories";
@@ -29,7 +29,9 @@ export default <cx>
             <Repeater records={categories}>
                 <div class="category" onClick="selectCategory">
                     <span text:tpl="{$record.name}"/>
-                    <img src:tpl="~/assets/category/{$record.name:lowercase}.svg" />
+                    <img src={computable('$record.name', name => {
+                        return `~/assets/category/${name.replace('/', '-').toLowerCase()}.svg`;
+                    })} />
                 </div>
             </Repeater>
         </FlexRow>
@@ -68,14 +70,19 @@ export default <cx>
                 />
 
                 <br/>
+                <FlexRow spacing>
+                    <Button
+                        onClick="back"
+                        text="Back"
+                    />
 
-                <Button
-                    mod="primary"
-                    style="align-self: flex-start;"
-                    onClick="save"
-                    disabled={expr('!{$page.valid}')}
-                    text="Save"
-                />
+                    <Button
+                        mod="primary"
+                        onClick="save"
+                        disabled={expr('!{$page.valid}')}
+                        text="Save"
+                    />
+                </FlexRow>
 
             </FlexCol>
         </ValidationGroup>

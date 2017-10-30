@@ -40,6 +40,10 @@ export default class extends Controller {
         }
     }
 
+    back() {
+        this.store.delete('$page.entry.categoryId');
+    }
+
     selectCategory(e, {store}) {
         let catId = store.get('$record.id');
         this.store.set('$page.entry.categoryId', catId);
