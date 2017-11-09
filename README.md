@@ -1,9 +1,16 @@
 # cxjs-home-budget-app-tutorial
-Learn CxJS by creating a home budgeting app
+
+## Learn CxJS by creating a home budgeting app
+
+In this tutorial, we will be exploring in more depth how Cx framework works, and learn about its many rich features. Most of the design principles used in Cx are also broadly applicable to many other JavaScript frameworks.
 
 ## Getting Started 
 
-TODO
+As Cx is built on top of React, it is assumed for this tutorial that you are familiar with some of the latest JavaScript features and the JSX syntax used in React. If this is not the case, we highly recommend you go through this amazing [introductury tutorial for React](https://reactjs.org/tutorial/tutorial.html) first, and come back here once you're ready.
+
+## Help, I’m Stuck!
+
+If you get stuck, our CxJS slack channel is a great way to get quick help. Also, you can file any issues via GitHub, and we’ll do our best to help you out.
 
 ## Tutorial
 
