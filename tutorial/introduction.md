@@ -7,6 +7,6 @@ Here is a quick introduction to our tutorial
 
 We are going to build a simple app that helps keep track of home expenses. 
 
-<a href="https://worldoscope.cxjs.io/">
-    <img src="https://github.com/codaxy/cx/blob/master/misc/screenshots/worldoscope/report.png" alt="Worldoscope Report" />
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/dashboard.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/dashboard.PNG" alt="Dashboard" />
 </a>
