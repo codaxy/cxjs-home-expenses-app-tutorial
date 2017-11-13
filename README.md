@@ -19,26 +19,26 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
     * Data model
     * Fake data
 
-* Preparation
+* [Setup](tutorial/setup.md) 
     * Setting up a new Cx project
     * Examine project folder structure
     * Install Material design theme
     
-* Core concepts
+* [Core concepts](tutorial/core-concepts.md) 
     * Application state (Store)
     * Data-binding
     * Controller
     
-* Layout
+* [Layout](tutorial/layout.md) 
     * Layout elements
     * Main layout operations
     * Main content and routing (routes/index.js)
 
-* Entry log page - simple grid showing all of the entries
+* [Entry log page - simple grid showing all of the entries](tutorial/entry-log.md) 
    * Grid widget   
    * Connect view components to the store
 
-* Edit entry page
+* [Edit entry page](tutorial/edit-entry.md) 
    * Route parameters + Sandbox (edit entry example)   
    * Build the form (buttons, text fields, number fields, date fields, lookup fields...)
    * Form validation
@@ -46,13 +46,13 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
    * Saving data to the store
    * Explain other common Store manipulations
    
-* Additional data operations
+* [Additional data operations](tutorial/data-operations.md) 
    * add entry
    * remove entry
    * localStorage
    * add basic filtering and search functionality to the Entry log page
 
-* Dashboard page
+* [Dashboard page](tutorial/dashboard.md) 
    * Add charts and graphs to visually represent the data
    * Explain triggers and computables
 
