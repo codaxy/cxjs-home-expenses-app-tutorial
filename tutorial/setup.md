@@ -39,3 +39,13 @@ yarn start
 ```
 
 ## Examine project folder structure
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/folder-structure.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/folder-structure.PNG" alt="Folder structure" />
+</a>
+
+The scaffold project can be found inside the `app` folder. In it, we can find the following subfolders:
+   * `components` - here we normally save custom Cx components used throughout the app.
+   * `layout` - here we define the main layout for our app (sidebars, headers,                    columns...).
+   * `routes` - subfolders inside the `routes` basically represent all the pages/views our app has, and inside them are all the JS files that are used to generate that route.
+   * `assets` - here we typically save all the assets that are used in our app (images, icons...).
