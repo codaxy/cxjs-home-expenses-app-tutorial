@@ -46,6 +46,17 @@ yarn start
 
 The scaffold project can be found inside the `app` folder. In it, we can find the following subfolders:
    * `components` - here we normally save custom Cx components used throughout the app.
+   * `data` - here it is convenient to keep data that is hardcoded, but used at multiple places inside the app. For this app we will keep here our expenses categories and the fake data generator.
    * `layout` - here we define the main layout for our app (sidebars, headers,                    columns...).
-   * `routes` - subfolders inside the `routes` basically represent all the pages/views our app has, and inside them are all the JS files that are used to generate that route.
+   * `routes` - subfolders inside the `routes` basically represent all of the pages/views our app has, and inside them are all of the JS files that are used to generate that route.
+
+
+It is also interesting to mention the other folders outside the `app` folder:
    * `assets` - here we typically save all the assets that are used in our app (images, icons...).
+   * `config` - this folder contains all of the configuration files for `babel` and `webpack`, but for most of the use-cases, the default settings are fine and we won't have to bother ourselves with it.
+   * `dist` - this folder is created when we run the `yarn build` command. Inside it, we will find the entire app optized for production (all JS files have been bundeled together and minified).
+   * `node_modules` - this is where `Node` keeps all of the project dependencies. This folder is maintaned by our package manager (`yarn` or `npm`).
+
+Don't worry if some things are still unclear to you, this is just a short overview. As you follow along this tutorial, we will be exploring most of these folders in more depth, and the folder structure will begin to make more sense.
+
+## Install Material design theme
