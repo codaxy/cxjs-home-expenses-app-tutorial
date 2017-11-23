@@ -60,3 +60,53 @@ It is also interesting to mention the other folders outside the `app` folder:
 Don't worry if some things are still unclear to you, this is just a short overview. As you follow along this tutorial, we will be exploring most of these folders in more depth, and the folder structure will begin to make more sense.
 
 ## Install Material design theme
+
+Although Cx themes are mostly plug-and-play, there are a couple of steps we need to perform when installing them. 
+
+First we install the theme package:
+
+```
+yarn add cx-theme-material
+```
+
+This will save the theme package to the `node_modules` folder and update our `package.json` file.
+
+Next, we need to add the following two lines to the `index.scss` file inside the `app` folder:
+
+#### app/index.scss
+
+```
+$cx-include-global-rules: true;
+
+// add the following two lines:
+@import "~cx-theme-material/src/variables";
+@import "~cx-theme-material/src/index";
+
+@import "components/index";
+@import "layout/index";
+@import "routes/index";
+```
+Please note that these two lines should be added after the first line of code.
+
+Beside CSS, a theme may include JavaScript changes as well. Because of this, the theme's `index.js` file needs to be imported at the JavaScript's entry point of your Cx application.
+
+```
+import 'cx-theme-material';
+
+```
+#### app/index.js
+```
+import { Store } from 'cx/data';
+import { Url, History, Widget, startAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
+import { Timing, Debug } from 'cx/util';
+//css
+import "./index.scss";
+
+// add the following line:
+import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
+
+enableMaterialLabelPlacement();
+enableMaterialHelpPlacement();
+
+// Rest of file...
+```
