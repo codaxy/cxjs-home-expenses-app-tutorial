@@ -5,10 +5,11 @@ import {Tooltip, enableTooltips} from 'cx/widgets';
 //css
 import "./index.scss";
 
+//material theme
 import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
-
 enableMaterialLabelPlacement();
 enableMaterialHelpPlacement();
+
 enableTooltips();
 enableCultureSensitiveFormatting();
 Tooltip.prototype.touchBehavior = 'ignore';

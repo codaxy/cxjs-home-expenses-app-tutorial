@@ -27,6 +27,27 @@ cd cxjs-home-expenses-app-tutorial
 yarn start
 ```
 
+### Git version control
+
+It is also a good idea to use `git` version control from the very beginning of the project. So, if starting from scratch, make sure to initialize the git repository by running the following command inside the project folder:
+
+```
+git init
+```
+
+Make sure to add a `.gitignore` file to the project folder with the following text:
+```
+dist
+node_modules
+```
+This tells `git` not to keep track of changes inside `dist` and `node_modules` folders, as these folders will be maintained automatically by our scripts and package manager.
+
+Now you can make your initial commit by entering the following commands:
+```
+git add .
+git commit -m "Initial commit"
+```
+
 ### Exploring the finished app
 
 To see the finished app, simply clone this repo onto your computer and switch between branches to explore different stages of the tutorial.
@@ -98,7 +119,6 @@ Or more specifically:
 
 ```
 import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
-
 enableMaterialLabelPlacement();
 enableMaterialHelpPlacement();
 ```
@@ -112,12 +132,10 @@ import { Timing, Debug } from 'cx/util';
 //css
 import "./index.scss";
 
-// add the following lines:
+//material theme
 import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
-
 enableMaterialLabelPlacement();
 enableMaterialHelpPlacement();
-// end of edit
 
 //store
 const store = new Store();

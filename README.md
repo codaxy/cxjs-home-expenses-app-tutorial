@@ -27,7 +27,7 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
 * [Core concepts](tutorial/core-concepts.md) 
     * Application state (Store)
     * Data-binding
-    * Controller
+    * Controllers
     
 * [Layout](tutorial/layout.md) 
     * Layout elements
