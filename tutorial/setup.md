@@ -94,6 +94,16 @@ Beside CSS, a theme may include JavaScript changes as well. Because of this, the
 import 'cx-theme-material';
 
 ```
+Or more specifically: 
+
+```
+import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
+
+enableMaterialLabelPlacement();
+enableMaterialHelpPlacement();
+```
+The updated file should look like this:
+
 #### app/index.js
 ```
 import { Store } from 'cx/data';
@@ -102,11 +112,46 @@ import { Timing, Debug } from 'cx/util';
 //css
 import "./index.scss";
 
-// add the following line:
+// add the following lines:
 import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
 
 enableMaterialLabelPlacement();
 enableMaterialHelpPlacement();
+// end of edit
 
-// Rest of file...
+//store
+const store = new Store();
+
+//webpack (HMR)
+if (module.hot) {
+   // accept itself
+   module.hot.accept();
+
+   // remember data on dispose
+   module.hot.dispose(function (data) {
+      data.state = store.getData();
+      if (stop)
+         stop();
+   });
+
+   //apply data on hot replace
+   if (module.hot.data)
+      store.load(module.hot.data.state);
+}
+
+//routing
+
+Url.setBaseFromScript('app.js');
+History.connect(store, 'url');
+
+//debug
+
+Widget.resetCounter();
+Timing.enable('app-loop');
+Debug.enable('app-data');
+
+//app loop
+import Routes from './routes';
+
+let stop = startAppLoop(document.getElementById('app'), store, Routes);
 ```
