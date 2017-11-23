@@ -194,4 +194,4 @@ Default theme
 
 Material theme
 
-The form should now have the material look.
+The form should now look like the one on the second image.

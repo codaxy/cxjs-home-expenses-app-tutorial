@@ -45,10 +45,18 @@ Dashboard
 
 
 <a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG" alt="Add expense" />
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG" alt="Add expense page" />
 </a>
 
-Log
+Add expense page
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG" alt="Log page" />
+</a>
+
+Log page
+
+
 
 ## Data model
 
@@ -75,8 +83,9 @@ entries = [
 ```
 
 This model lets us easilty perform queris and filter entries by different parameters (category, date, amount...).
-The categories will be stored in a seperate array, inside `./src/app/data/categories.js`:
+The categories will be stored in a seperate array:
 
+#### app/data/categories.js
 ```
 export const categories = [
     {
@@ -125,6 +134,8 @@ export const categories = [
 ## Fake data
 
 For testing purposes, we will use a function that generates an array of 1000 fake entries, randomly picking a category, an amount and a date within the last year. `uid` package is used to generate uniqe ids. 
+
+#### app/data/entries.js
 
 ```
 import uid from 'uid';
