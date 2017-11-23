@@ -71,14 +71,14 @@ yarn add cx-theme-material
 
 This will save the theme package to the `node_modules` folder and update our `package.json` file.
 
-Next, we need to add the following two lines to the `index.scss` file inside the `app` folder:
+Next, we need to update the `index.scss` file inside the `app` folder:
 
 #### app/index.scss
 
 ```
 $cx-include-global-rules: true;
 
-// add the following two lines:
+// replacement lines to import the material theme styles
 @import "~cx-theme-material/src/variables";
 @import "~cx-theme-material/src/index";
 
@@ -155,3 +155,43 @@ import Routes from './routes';
 
 let stop = startAppLoop(document.getElementById('app'), store, Routes);
 ```
+
+Finally, be sure to update the `webpack.config.js` so that `babel-loader` also goes through `cx-theme-material` folder:
+
+#### config/webpack.config.js
+
+```
+    ...
+
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            //add here any ES6 based library
+            // add 'cx-theme-material' to the regex
+            include: /(app|cx|cx-react|cx-theme-material)[\\\/]/, 
+            loader: 'babel-loader',
+            query: babelCfg
+        }, {
+           test: /\.(png|jpg)/,
+           loader: 'file-loader'
+        }]
+    },
+    
+    ...
+```
+
+To check that the material theme has successfully installed, enter `yarn start` in command line, in the app go to `Users` page and choose `User 1` ([http://localhost:8088/users/1](http://localhost:8088/users/1)) and check out the Edit User form.
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_default.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_default.PNG" alt="Folder structure" />
+</a>
+
+Default theme
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG" alt="Folder structure" />
+</a>
+
+Material theme
+
+The form should now have the material look.
