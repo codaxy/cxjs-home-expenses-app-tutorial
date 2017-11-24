@@ -114,7 +114,7 @@ Beside CSS, a theme may include JavaScript changes as well. Because of this, the
 ```
 import 'cx-theme-material';
 ```
-Or more specifically: 
+Or more specifically, if we want also to use material design label and help messages placement, we need to enable these features explicitly: 
 
 ```
 import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
@@ -200,15 +200,21 @@ Finally, be sure to update the `webpack.config.js` so that `babel-loader` also g
 To check that the material theme has successfully installed, enter `yarn start` in command line, in the app go to `Users` page and choose `User 1` ([http://localhost:8088/users/1](http://localhost:8088/users/1)) and check out the Edit User form.
 
 <a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_default.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_default.PNG" alt="Folder structure" />
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_default.PNG" alt="Default theme" />
 </a>
 
 Default theme
 
 <a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG" alt="Folder structure" />
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG" alt="Material theme" />
 </a>
 
 Material theme
 
-The form should now look like the one on the second image.
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/edit_user_material_label_placement.PNG" alt="Material theme and label placement" />
+</a>
+
+Material theme and label placement
+
+The form should now look like the one on the third image.
