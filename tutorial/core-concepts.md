@@ -5,6 +5,7 @@ Before continuing with the application, it is useful to familiarize ourselves wi
 * [Data-binding](#data-binding)
 * [Controllers](#controllers)
 
+**TODO:** Add examples from the application to explore core concepts
 
 ## Application state (Store)
 
