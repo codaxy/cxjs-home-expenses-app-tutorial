@@ -1,9 +1,9 @@
 # Core concepts
 
 Before continuing with the application, it is useful to familiarize ourselves with core Cx concepts:
-* Application state (Store)
-* Data-binding
-* Controllers
+* [Application state (Store)](#application-state-store)
+* [Data-binding](#data-binding)
+* [Controllers](#controllers)
 
 
 ## Application state (Store)
@@ -128,9 +128,44 @@ Computables are somewhat simillar to expressions and templates, since they also 
    <Text value={computable('intro.core.a', 'intro.core.b', (a, b) => a==null || b==null ? "ERR" : a + b )} />
 </div>
 ```
-`computable` is a function that takes in one or more Store paths and a function that will be called to perform a certain operation with these values. The function has to be passed in as the last parameter, and its number of arguments should be equal to the number Store paths that are passed in before the function itself. In the above example, firt two parameters are the paths inside the Store that hold the values of `a` and `b`, and the third parameter is a function that will receive these two values as its arguments. The return value of that function will be the value of that `computable`.
+`computable` is a function that takes in one or more Store paths and a callback function that will be called to perform a certain operation with these values, each time any one of them is changed. The callback function has to be passed in as the last parameter, and its number of arguments should be equal to the number of Store paths that are passed in before the callback function itself. In the above example, first two parameters are paths inside the Store that hold the values of `a` and `b`, and the third parameter is a callback function that will receive these two values as its arguments. The return value of that function will be the value of that `computable`.
 
 One huge advantage of computables over expressions and templates is that we can combine them with any other external functions or variables with the use of JavaScript closure, which will be demonstrated later on in this tutorial.
 
 ## Controllers
+
+Controllers are used to concentrate business logic required for views. This includes preparing data for rendering purposes, calculating values, reacting on changes, defining callbacks, etc. Controllers are assigned to widgets using the `controller` attribute. 
+
+#### Controller initialization example
+
+```
+import { Controller } from "cx/ui";
+import { HtmlElement } from "cx/widgets";
+
+class SimpleController extends Controller {
+  onInit() {
+    this.store.set("count", 0);
+  }
+}
+
+export const App = (
+  <cx>
+    <div controller={SimpleController}>
+      Count: <span text:bind="count" />
+    </div>
+  </cx>
+);
+```
+[See live example](https://fiddle.cxjs.io/?f=SufJMlDZ)
+
+Let's quickly go through this simple example. Our `SimpleController` is created by extending the Cx Controller. Upon initialization, Cx will automatically check for and run the `onInit` method, so it is a good place to initialize application state, fetch data from an external source or set triggers and computables. 
+
+In the example above, we are simply setting the `count` value inside the Store to zero. A reference to the Store is made available to each Controller via the `this.store` property.
+We are then assigning our `SimpleController` to a `div` element, which ensures our SimpleController is initialized before the element is rendered. Inside the `div`, with the use of data-binding, we are displaying the `count` value as a simple text.
+
+For more information and examples, check out the docs page on [Controllers](https://docs.cxjs.io/concepts/controllers).
+
+
+
+
 
