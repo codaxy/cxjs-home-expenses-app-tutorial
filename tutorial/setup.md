@@ -1,9 +1,9 @@
 # Setup
 
 Here is a quick introduction to our tutorial
-* Setting up a new Cx project
-* Examine project folder structure
-* Install Material design theme
+* [Setting up a new Cx project](#setting-up-a-new-cx-project)
+* [Examine project folder structure](#examine-project-folder-structure)
+* [Install Material design theme](#install-material-design-theme)
 
 ## Setting up a new Cx project
 

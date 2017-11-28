@@ -1,9 +1,9 @@
 # Introduction
 
 Here is a quick introduction to our tutorial
-* What are we going to build
-* Data model
-* Fake data
+* [What are we going to build](#what-are-we-going-to-build)
+* [Data model](#data-model)
+* [Fake data](#fake-data)
 
 ## What are we going to build
 
