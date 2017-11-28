@@ -19,7 +19,7 @@ export default <cx>
             <RedirectRoute
                 route="~/"
                 url={bind("url")}
-                    redirect="~/dashboard"
+                redirect="~/dashboard"
             />
 
             <Route route="~/entry/:id" url={bind("url")}>

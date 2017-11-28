@@ -30,7 +30,7 @@ export default <cx>
          <h1>Home Expenses</h1>
          <dl>
             <dt>
-               <Link href="~/dashboard" match="prefix" url={bind("url")}>
+               <Link href="~/dashboard" url={bind("url")}>
                   Dashboard
                </Link>
             </dt>

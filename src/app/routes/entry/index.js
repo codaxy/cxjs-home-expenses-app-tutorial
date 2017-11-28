@@ -28,7 +28,7 @@ export default <cx>
         <FlexRow visible={expr("!{$page.entry.categoryId}")} wrap spacing>
             <Repeater records={categories}>
                 <div class="category" onClick="selectCategory">
-                    <span text:tpl="{$record.name}"/>
+                    <span text={tpl("{$record.name}")} />
                     <img src={computable('$record.name', name => {
                         return `~/assets/category/${name.replace('/', '-').toLowerCase()}.svg`;
                     })} />

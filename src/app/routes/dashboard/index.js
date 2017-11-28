@@ -16,14 +16,12 @@ import {
     TimeAxis,
     LineGraph,
 } from "cx/charts";
-
 import {Svg, Text as SvgText} from "cx/svg";
 
 import {categories, categoryNames} from '../../data/categories';
 
 
 export default <cx>
-
     <h2 putInto="header">Dashboard</h2>
 
     <FlexCol spacing="large" controller={Controller}>
@@ -50,7 +48,7 @@ export default <cx>
                 <Heading level={3}>Timeline</Heading>
                 <div
                     style="margin-left: auto"
-                    text:tpl="TOTAL: {$page.total:currency;usd;2}"
+                    text={tpl("TOTAL: {$page.total:currency;usd;2}")}
                 />
             </FlexRow>
             <FlexCol>
@@ -103,7 +101,7 @@ export default <cx>
                 <FlexRow putInto="header" align="center">
                     <Heading
                         level={3}
-                        text:tpl="TOTAL: {$page.total:currency;usd;2}"
+                        text={tpl("TOTAL: {$page.total:currency;usd;2}")}
                     />
                     <Button
                         style="margin-left: auto"
