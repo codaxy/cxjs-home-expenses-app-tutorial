@@ -1,17 +1,17 @@
 # Layout
 
-Here is a quick introduction to our tutorial
+In this section we will explore the following:
 * [Layout elements](#layout-elements)
 * [Main layout operations](#main-layout-operations)
 * [Main content and routing](#main-content-and-routing)
 
 ## Layout elements
 
-Outer layouts define wrapper around the content being rendered. This is very convenient when multiple pages need to share a common layout or for defining global application layouts.
+Outer layouts define a wrapper around the content being rendered. This is very convenient when multiple pages need to share a common layout or for defining global application layouts.
 
 To assign an outer layout to a widget, we specify the `outerLayout` attribute and pass in the predefined application layout.
 
-A layout is a simple widget tree. `ContentPlaceholder` elements are used to specify content insertion points.
+A layout is a simple widget tree with `ContentPlaceholder` elements that are used to specify content insertion points.
 
 ## App layout
 
@@ -86,8 +86,8 @@ export default <cx>
 </cx>
 ```
 
-The layout consists of three main elements: `main`, `header` and `aside` (for the sidebar).
-It is interesting to notice that our `header` and `aside` elements come after the `main` element. The reason is that our scaffold app is using `fixed` positioning for `header` and `aside` elements, and this ensures the correct stacking order: `main` at the bottom (gray background), `aside` at the top (white sidebar) and the `header` in between (over `main` and under `aside`) - see image below.
+The layout consists of three main sections: `main`, `header` and `aside` (for the sidebar).
+It is interesting to notice that our `header` and `aside` elements come after the `main` element. The reason is that our scaffold app is using `fixed` positioning for `header` and `aside` elements, and this ensures the correct stacking order: `main` at the bottom (gray background), `aside` at the top (white sidebar) and the `header` in between (over `main` and under `aside`).
 
 <a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG">
     <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG" alt="Default layout" />
@@ -96,7 +96,13 @@ It is interesting to notice that our `header` and `aside` elements come after th
 Default layout
 
 
-The following code changes to the sidebar will define the links for our app and set the new sidebar header text to "Home Expenses":
+
+
+## Links
+
+We use the [`Link`](https://docs.cxjs.io/widgets/links) Widget to define our links. `href` attribute represents the Url to the link's target location. Since we are using relative paths, the Url begins with the `~/` prefix which will in our current local setup automatically get replaced with the app's root url: `http://localhost:8088/`.
+
+The following code-changes to the sidebar will define the links for our app and set the new sidebar header text to "Home Expenses":
 
 ```
     ...
@@ -125,13 +131,24 @@ The following code changes to the sidebar will define the links for our app and 
     ...
 ```
 
-We also import the `bind` function from `cx/ui`, so we can use functional binding sintax as described in [Core concepts](https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/core-concepts.md#two-way-data-binding-bind).
+We import the `bind` function from `cx/ui`, so we can use functional binding sintax as described in [Core concepts](https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/core-concepts.md#two-way-data-binding-bind).
 
-We use the `Link` Widget to define our links. `href` attribute represents the Url to the link's target location. Since we are using relative paths, the Url begins with the `~/` prefix. In our current local setup, `~/` prefix is automatically replaced with `http://localhost:8088/`.
+We set the `url` attribute as a binding to the `'url'` value available in the Store. If `href` matches `url`, additional CSS class `active` is applied to indicate the link that is currently active. If you are wondering where did this `'url'` value inside the Store come from, the answer lies in this piece of code:
 
-We also set the `url` attribute as a binding to the current Url value in the Store (kept under the `url` path in our scaffold project). If `href` matches `url`, additional CSS class `active` is applied to indicate the link that is currently active.
+#### app/index.js
+```
+...
+//routing
+Url.setBaseFromScript('app.js');
+History.connect(store, 'url');
+...
+```
+The `History` module is used for working with HTML5 `pushState` navigation. It basically keeps track of the user's navigation history, which enables the use of browser's `back` and `forward` commands.
 
-To learn more about Links, checkout their [docs page](https://docs.cxjs.io/widgets/links).
+`History.connect(store, 'url');` makes sure that, as the user navigates the site, the current Url is always kept up to date with the Store value called `'url'`. Mistery solved!
+
+
+
 
 Next, let's change the default header color:
 
@@ -170,12 +187,11 @@ export default <cx>
 </cx>
 ```
 
-If we examine the Cx element that is exported in this file, we can see there is a `h2` header with `putInto` attribute, and another `FlexCol` element that hold the rest of the content.
+If we examine the Cx element that is exported in this file, we can see there is a `h2` header with `putInto` attribute, and another `FlexCol` element that holds the rest of the content.
 
 The value of the `putInto` attribute actually represents the `name` of the `ContentPlaceholder`, or the insertion point for our `h2` elements. This means, the `h2` elements will get inserted into the `<ContentPlaceholder name='header' />` element, which is inside the `header` element in our layout.
 
-The `FlexCol` element, that has no `putInto` attribute, will be inserted into the nameless `ContentPlaceholder` inside the `main` element in our layout. This is because the `ContentPlaceholder` widget is named `main`, if not specified otherwise, and all the content without the `putInto` attribute is placed inside it.
-
+The `FlexCol` element, that has no `putInto` attribute, will be inserted into the `ContentPlaceholder` inside the `main` element in our layout. This is because the nameless `ContentPlaceholder` is used as the default insertion point for all of the content without the `putInto` attribute.
 
 
 ## Main application Routes
