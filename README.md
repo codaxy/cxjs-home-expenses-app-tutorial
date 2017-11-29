@@ -6,7 +6,7 @@ In this tutorial, we will be exploring in more depth how Cx framework works, and
 
 ## Getting Started 
 
-As Cx is built on top of React, it is assumed for this tutorial that you are familiar with some of the latest JavaScript features and the JSX syntax used in React. If this is not the case, we highly recommend you go through this amazing [introductury tutorial for React](https://reactjs.org/tutorial/tutorial.html) first, and come back here once you're ready.
+As Cx is built on top of React, it is assumed for this tutorial that you are familiar with some of the latest JavaScript features and the JSX syntax used in React. If this is not the case, we highly recommend you go through this amazing [introductory tutorial for React](https://reactjs.org/tutorial/tutorial.html) first, and come back here once you're ready.
 
 ## Help, I’m Stuck!
 
