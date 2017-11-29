@@ -13,7 +13,7 @@ import {
     Repeater,
     FlexCol
 } from 'cx/widgets';
-import {bind, expr, computable, LabelsTopLayout} from 'cx/ui';
+import {bind, expr, computable, tpl, LabelsTopLayout} from 'cx/ui';
 
 import Controller from './Controller';
 import {categories} from "../../data/categories";
