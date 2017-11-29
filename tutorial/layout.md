@@ -146,7 +146,7 @@ Cx uses Sass preprocessor for styling. For more info on styling Cx apps, checkou
 Our app should now like like this:
 
 <a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-links.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG" alt="Added links" />
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-links.PNG" alt="Added links" />
 </a>
 
 
