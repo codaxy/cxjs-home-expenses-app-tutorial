@@ -30,9 +30,9 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
     * Controllers
     
 * [Layout](tutorial/layout.md) 
-    * Layout elements
-    * Main layout operations
-    * Main content and routing (routes/index.js)
+    * Layout intro
+    * App layout
+    * Main app Routes
 
 * [Entry log page - simple grid showing all of the entries](tutorial/entry-log.md) 
    * Grid widget   
