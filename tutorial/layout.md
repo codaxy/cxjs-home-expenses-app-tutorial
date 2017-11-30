@@ -20,7 +20,7 @@ Our app is using the default layout as defined in our project scaffold. The layo
 
 #### app/layout/index.js
 
-```
+```jsx
 import {HtmlElement, Link, Button} from 'cx/widgets';
 import {ContentPlaceholder} from 'cx/ui';
 import Controller from "./Controller";
@@ -97,7 +97,7 @@ Default layout
 Now let's examine one of the predefined routes, to see how we actually define dynamic content to be inserted into the `ContentPlaceholders` in our `header` and `main` sections:
 
 #### app/routes/dashboard/index.js
-```
+```jsx
 ...
 
 export default <cx>
@@ -125,7 +125,7 @@ Notice that in the example below we are providing the `url` attribute from the S
 Let's see how the Routes are used. 
 
 #### app/routes/index.js
-```
+```jsx
 import { Route, PureContainer, Section, Sandbox } from 'cx/widgets';
 import { FirstVisibleChildLayout } from 'cx/ui'
 
@@ -173,7 +173,7 @@ We then apply our `AppLayout` to the Sandbox component, through the `outerLayout
 
 #### app/routes/users/index.js
 
-```
+```jsx
 import { Route } from 'cx/widgets';
 
 import List from './List';
@@ -195,7 +195,7 @@ The parts of the `route` that start with `:` are URL parameters whose values wil
 
 For example, the following URL `http://localhost:8088/users/1` would match the following route:
 
-```
+```jsx
 <Route route="~/users/:userId" url:bind="url">
     ...
 </Route>
@@ -203,7 +203,7 @@ For example, the following URL `http://localhost:8088/users/1` would match the f
 
 And we could obtain the `userId` from the Store as follows:
 
-```
+```jsx
 let userId = this.store.get('$route.userId');
 ```
 
