@@ -92,6 +92,8 @@ yarn add cx-theme-material
 
 This will save the theme package to the `node_modules` folder and update our `package.json` file.
 
+Since Material theme has it's own icons and fonts, we need to 
+
 Next, we need to update the `index.scss` file inside the `app` folder:
 
 #### app/index.scss
@@ -171,7 +173,7 @@ import Routes from './routes';
 let stop = startAppLoop(document.getElementById('app'), store, Routes);
 ```
 
-Finally, be sure to update the `webpack.config.js` so that `babel-loader` also goes through `cx-theme-material` folder:
+Be sure to update the `webpack.config.js` so that `babel-loader` also goes through `cx-theme-material` folder:
 
 #### config/webpack.config.js
 
@@ -194,6 +196,8 @@ Finally, be sure to update the `webpack.config.js` so that `babel-loader` also g
     
     ...
 ```
+
+Finally, don't forget to add material icons to your project, as described [here](https://google.github.io/material-design-icons/#icon-font-for-the-web).
 
 To check that the material theme has successfully installed, enter `yarn start` in command line, in the app go to `Users` page and choose `User 1` ([http://localhost:8088/users/1](http://localhost:8088/users/1)) and check out the Edit User form.
 

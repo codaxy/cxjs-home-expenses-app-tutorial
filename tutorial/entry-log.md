@@ -2,3 +2,4 @@
 
 * Grid widget   
 * Connect view components to the store
+

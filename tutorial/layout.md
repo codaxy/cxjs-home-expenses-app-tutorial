@@ -336,4 +336,21 @@ The following code-changes to the sidebar will define the links for our app and 
 
 We set the `url` attribute as a binding to the `'url'` value available in the Store. If `href` matches `url`, additional CSS class `active` is applied to indicate the link that is currently active.
 
-Oh, and don't forget to commit your changes.
+Oh, and don't forget to change the header inside the `index.html` file:
+
+#### app/index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Home Expenses</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons:400,500,600" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+    </div>
+</body>
+</html>
+```
