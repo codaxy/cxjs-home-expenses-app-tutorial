@@ -201,10 +201,12 @@ For example, the following URL `http://localhost:8088/users/1` would match the f
 </Route>
 ```
 
-And we could obtain the `userId` from the Store as follows:
+And inside a Controller, we could obtain the `userId` from the Store as follows:
 
 ```jsx
-let userId = this.store.get('$route.userId');
+let userId = this.store.get('$route.userId'); // 1
 ```
 
-Don't worry if this seems cryptic right now. It will make more sense when we revisit this at a later point in our tutorial.
+Don't worry if this seems cryptic right now. It will come in very handy at a later point in our tutorial. 
+
+Now that we have the necessary knowledge, we'll start making changes on our scaffold project.
