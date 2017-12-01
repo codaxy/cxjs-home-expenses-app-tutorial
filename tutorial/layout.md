@@ -65,16 +65,16 @@ export default <cx>
                         Dashboard
                     </Link>
                 </dd>
-                <dd>
-                <Link href="~/about" url:bind="url">
-                    About
-                </Link>
-                </dd>
-            </dl>
-            <dl>
-                <dt>
-                    Admin
-                </dt>
+                    <dd>
+                    <Link href="~/about" url:bind="url">
+                        About
+                    </Link>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        Admin
+                    </dt>
                 <dd>
                     <Link href="~/users" url:bind="url" match="prefix">
                         Users
@@ -218,7 +218,7 @@ Now that we have the necessary knowledge, we'll start making changes on our scaf
 Among the existing routes, we'll keep the `~/dashboard`, and replace the others with `~/entry` and `~/log` routes.
 
 #### app/routes/index.js
-```
+```jsx
 import { Route, RedirectRoute, PureContainer, Section, Sandbox } from 'cx/widgets';
 import { FirstVisibleChildLayout, bind } from 'cx/ui'
 
@@ -279,7 +279,7 @@ Or `npm`:
 npm install cx-cli --global
 ```
 
-Now, to set up route folders, open up the console inside project root directory and enter the following commands:
+Now, to set up route folders, open up the console inside the project root directory and enter the following commands:
 
 ```
 cx add route entry
@@ -307,7 +307,7 @@ We should also update the links in the sidebar menu. For defining links, the [`L
 
 The following code-changes to the sidebar will define the links for our app and set the new sidebar header text to "Home Expenses":
 
-```
+```jsx
     ...
     import {ContentPlaceholder, bind} from 'cx/ui';
     ...
@@ -335,3 +335,5 @@ The following code-changes to the sidebar will define the links for our app and 
 ```
 
 We set the `url` attribute as a binding to the `'url'` value available in the Store. If `href` matches `url`, additional CSS class `active` is applied to indicate the link that is currently active.
+
+Oh, and don't forget to commit your changes.
