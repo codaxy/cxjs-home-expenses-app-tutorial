@@ -6,7 +6,8 @@ Before continuing with the application, it is useful to familiarize ourselves wi
 * [Controllers](#controllers)
 
 **TODO:** Add examples from the application to explore core concepts
-Don't forget to mention the `cx` wrappers (`<cx></cx>`).
+* Don't forget to mention the `cx` wrappers (`<cx></cx>`).
+* Show the app state in console, so we can referr to it when explaining the Sandbox
 
 ## Application state (Store)
 

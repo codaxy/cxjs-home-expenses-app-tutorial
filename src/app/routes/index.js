@@ -1,5 +1,5 @@
 import { Route, RedirectRoute, PureContainer, Section, Sandbox } from 'cx/widgets';
-import { FirstVisibleChildLayout, bind, expr } from 'cx/ui'
+import { FirstVisibleChildLayout, bind } from 'cx/ui'
 
 import AppLayout from '../layout';
 

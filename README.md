@@ -33,6 +33,7 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
     * Layout intro
     * App layout
     * Routes
+    * Links
 
 * [Entry log page - simple grid showing all of the entries](tutorial/entry-log.md) 
    * Grid widget   

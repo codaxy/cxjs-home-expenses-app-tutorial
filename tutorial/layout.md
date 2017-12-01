@@ -1,9 +1,10 @@
 # Layout
 
 In this section we will explore the following:
-* [Layout elements](#layout-elements)
-* [Main layout operations](#main-layout-operations)
-* [Main content and routing](#main-content-and-routing)
+* [Layout intro](#layout-intro)
+* [App layout](#app-layout)
+* [Routes](#routes)
+* [Links](#links)
 
 ## Layout intro
 
@@ -200,8 +201,9 @@ For example, the following URL `http://localhost:8088/users/1` would match the f
     ...
 </Route>
 ```
+Since we are using relative paths, the Url begins with the `~/` prefix which will automatically get replaced with the app's root url (`http://localhost:8088/`).
 
-And inside a Controller, we could obtain the `userId` from the Store as follows:
+Inside a Controller, we could obtain the `userId` from the Store as follows:
 
 ```jsx
 let userId = this.store.get('$route.userId'); // 1
@@ -210,3 +212,126 @@ let userId = this.store.get('$route.userId'); // 1
 Don't worry if this seems cryptic right now. It will come in very handy at a later point in our tutorial. 
 
 Now that we have the necessary knowledge, we'll start making changes on our scaffold project.
+
+### Routes setup
+
+Among the existing routes, we'll keep the `~/dashboard`, and replace the others with `~/entry` and `~/log` routes.
+
+#### app/routes/index.js
+```
+import { Route, RedirectRoute, PureContainer, Section, Sandbox } from 'cx/widgets';
+import { FirstVisibleChildLayout, bind } from 'cx/ui'
+
+import AppLayout from '../layout';
+
+import Dashboard from './dashboard';
+import Entry from './entry';
+import Log from './log';
+
+
+export default <cx>
+    <PureContainer layout={FirstVisibleChildLayout}>
+        <Sandbox
+            key={bind("url")}
+            storage={bind("pages")}
+            outerLayout={AppLayout}
+            layout={FirstVisibleChildLayout}
+        >
+            <RedirectRoute
+                route="~/"
+                url={bind("url")}
+                redirect="~/dashboard"
+            />
+
+            <Route route="~/entry/:id" url={bind("url")}>
+                <Entry />
+            </Route>
+
+            <Route route="~/log" url={bind("url")}>
+                <Log />
+            </Route>
+
+            <Route route="~/dashboard" url={bind("url")}>
+                <Dashboard />
+            </Route>
+
+            <Section title="Page Not Found" mod="card">
+                This page doesn't exists. Please check your URL.
+            </Section>
+
+        </Sandbox>
+    </PureContainer>
+</cx>
+```
+
+We import the `bind` function from `cx/ui`, so we can use functional binding sintax as described in [Core concepts](https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/core-concepts.md#two-way-data-binding-bind).
+
+We are also using the `RedirectRoute` widget to open the Dashboard page by default. `RedirectRoute` is self-explaining: if the `route` matches the `url`, the user will be redirected to the `redirect` route.
+
+Now we need to create the actual folders where our routes will be kept.
+The easiest way is to use the `Cx CLI` tool. If you used `yarn create` to set up the project, you already have `Cx CLI` tool installed, otherwise you can install it using `yarn`:
+
+```
+yarn global add cx-cli
+```
+Or `npm`:
+```
+npm install cx-cli --global
+```
+
+Now, to set up route folders, open up the console inside project root directory and enter the following commands:
+
+```
+cx add route entry
+cx add route log
+```
+
+Your folder structure should now look like this:
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-routes-folder-structure.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/add-routes-folder-structure" alt="Folder structure after adding routes" />
+</a>
+
+`cx add route entry` creates a new folder (`app/routes/entry`) and adds template files (index.js, index.scss and Controller.js) for the new route. Naturally, you can also create the files and folders manually.
+
+Finally, don't forget to add imports for the newly created files and remove the onsed that are not needed anymore:
+#### app/routes/index.scss
+```
+@import 'dashboard/index';
+@import 'entry/index';
+@import 'log/index';
+```
+
+## Links
+
+We should also update the links in the sidebar menu. For defining links, the [`Link`](https://docs.cxjs.io/widgets/links) Widget is used. `href` attribute represents the Url to the link's target location. 
+
+The following code-changes to the sidebar will define the links for our app and set the new sidebar header text to "Home Expenses":
+
+```
+    ...
+    import {ContentPlaceholder, bind} from 'cx/ui';
+    ...
+        <aside class="aside">
+            <h1>Home Expenses</h1>
+            <dl>
+                <dt>
+                    <Link href="~/dashboard" url={bind("url")}>
+                        Dashboard
+                    </Link>
+                </dt>
+                <dt>
+                    <Link href="~/entry/new" url={bind("url")}>
+                        Add Expense
+                    </Link>
+                </dt>
+                <dt>
+                    <Link href="~/log" url={bind("url")}>
+                        Log
+                    </Link>
+                </dt>
+            </dl>
+        </aside>
+    ...
+```
+
+We set the `url` attribute as a binding to the `'url'` value available in the Store. If `href` matches `url`, additional CSS class `active` is applied to indicate the link that is currently active.
