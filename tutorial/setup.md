@@ -197,7 +197,25 @@ Be sure to update the `webpack.config.js` so that `babel-loader` also goes throu
     ...
 ```
 
-Finally, don't forget to add material icons to your project, as described [here](https://google.github.io/material-design-icons/#icon-font-for-the-web).
+Finally, don't forget to add material icons to your project, as described [here](https://google.github.io/material-design-icons/#icon-font-for-the-web). 
+
+#### app/index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Home Expenses</title>
+    <!--Add Material icons-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Material+Icons:400,500,600" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+    </div>
+</body>
+</html>
+```
 
 To check that the material theme has successfully installed, enter `yarn start` in command line, in the app go to `Users` page and choose `User 1` ([http://localhost:8088/users/1](http://localhost:8088/users/1)) and check out the Edit User form.
 
