@@ -75,9 +75,9 @@ Here we'll briefly explore the ones we will be using most often. For more, check
 Two-way data binding is commonly used in forms, as it supports both read and write operations. Let's use a checkbox for illustration. To display a checkbox, we need to know whether it's checked or not. That's the read operation. If the user clicks the checkbox, the corresponding value needs to be changed, and that's the write operation.
 
 ```
-<Checkbox value:bind='intro.core.cb1'>Checkbox</Checkbox>
+<Checkbox value-bind='intro.core.cb1'>Checkbox</Checkbox>
 ```
-By appending a `:bind` suffix to the `value` property, we are basically telling Cx to create a two-way data binding between the Checkbox and the Store. In this case, instead of assigning `true` or `false` to the `value` property, we are entering a string that represents a path inside the Store where that value will be kept. 
+By appending a `-bind` suffix to the `value` property, we are basically telling Cx to create a two-way data binding between the Checkbox and the Store. In this case, instead of assigning `true` or `false` to the `value` property, we are entering a string that represents a path inside the Store where that value will be kept. 
 The default value for the Checkbox state in this case would be `false`. If we want to make it `true` instead, we would need to use the functional synthax for creating a binding:
 
 ```
@@ -96,12 +96,12 @@ Another way to do this would be to assign an object literal with `bind` and `def
 Data expressions are string attributes that are compiled to JavaScript methods and used to calculate dynamic values at runtime. Let's add a new textfield control and use a data expression for its enabled property.
 
 ```
-<TextField value:bind='intro.core.text' enabled:expr='!{intro.core.cb1}' />
+<TextField value-bind='intro.core.text' enabled-expr='!{intro.core.cb1}' />
 ```
 
 Note that now the text field and the checkbox from the previous section are both relying on the value of `intro.core.cb1`. 
 
-* Suffix `:expr` is used on attributes to define a data expression.
+* Suffix `-expr` is used on attributes to define a data expression.
 
 * Curly brackets denote data bindings.
 
@@ -112,10 +112,10 @@ Note that now the text field and the checkbox from the previous section are both
 Templates are data expressions which return strings. They are a convenient option to avoid using both types of quotes within data expressions. Another advantage that they can be used to easily apply formatting to the output, which will be demonstrated later.
 
 ```
-<TextField value:bind='intro.core.firstName' label="First Name" />
-<TextField value:bind='intro.core.lastName' label="Last Name" />
-<TextField value:tpl='Hello {intro.core.firstName} {intro.core.lastName}!' label="Template" mode="view" />
-<TextField value:expr='"Hello "+{intro.core.firstName:s}+" "+{intro.core.lastName:s}+"!"' label="Expression" mode="view" />
+<TextField value-bind='intro.core.firstName' label="First Name" />
+<TextField value-bind='intro.core.lastName' label="Last Name" />
+<TextField value-tpl='Hello {intro.core.firstName} {intro.core.lastName}!' label="Template" mode="view" />
+<TextField value-expr='"Hello "+{intro.core.firstName:s}+" "+{intro.core.lastName:s}+"!"' label="Expression" mode="view" />
 ```
 
 ### Computables (computable)
@@ -124,9 +124,9 @@ Computables are somewhat simillar to expressions and templates, since they also 
 
 ```
 <div preserveWhitespace>
-   <NumberField value:bind='intro.core.a' placeholder="A" />
+   <NumberField value-bind='intro.core.a' placeholder="A" />
    +
-   <NumberField value:bind='intro.core.b' placeholder="B" />
+   <NumberField value-bind='intro.core.b' placeholder="B" />
    =
    <Text value={computable('intro.core.a', 'intro.core.b', (a, b) => a==null || b==null ? "ERR" : a + b )} />
 </div>
@@ -154,7 +154,7 @@ class SimpleController extends Controller {
 export const App = (
   <cx>
     <div controller={SimpleController}>
-      Count: <span text:bind="count" />
+      Count: <span text-bind="count" />
     </div>
   </cx>
 );

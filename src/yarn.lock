@@ -736,6 +736,41 @@ babel-preset-env@^1.5.2:
     invariant "^2.2.2"
     semver "^5.3.0"
 
+babel-preset-env@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.6.1.tgz#a18b564cc9b9afdf4aae57ae3c1b0d99188e6f48"
+  dependencies:
+    babel-plugin-check-es2015-constants "^6.22.0"
+    babel-plugin-syntax-trailing-function-commas "^6.22.0"
+    babel-plugin-transform-async-to-generator "^6.22.0"
+    babel-plugin-transform-es2015-arrow-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoped-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoping "^6.23.0"
+    babel-plugin-transform-es2015-classes "^6.23.0"
+    babel-plugin-transform-es2015-computed-properties "^6.22.0"
+    babel-plugin-transform-es2015-destructuring "^6.23.0"
+    babel-plugin-transform-es2015-duplicate-keys "^6.22.0"
+    babel-plugin-transform-es2015-for-of "^6.23.0"
+    babel-plugin-transform-es2015-function-name "^6.22.0"
+    babel-plugin-transform-es2015-literals "^6.22.0"
+    babel-plugin-transform-es2015-modules-amd "^6.22.0"
+    babel-plugin-transform-es2015-modules-commonjs "^6.23.0"
+    babel-plugin-transform-es2015-modules-systemjs "^6.23.0"
+    babel-plugin-transform-es2015-modules-umd "^6.23.0"
+    babel-plugin-transform-es2015-object-super "^6.22.0"
+    babel-plugin-transform-es2015-parameters "^6.23.0"
+    babel-plugin-transform-es2015-shorthand-properties "^6.22.0"
+    babel-plugin-transform-es2015-spread "^6.22.0"
+    babel-plugin-transform-es2015-sticky-regex "^6.22.0"
+    babel-plugin-transform-es2015-template-literals "^6.22.0"
+    babel-plugin-transform-es2015-typeof-symbol "^6.23.0"
+    babel-plugin-transform-es2015-unicode-regex "^6.22.0"
+    babel-plugin-transform-exponentiation-operator "^6.22.0"
+    babel-plugin-transform-regenerator "^6.22.0"
+    browserslist "^2.1.2"
+    invariant "^2.2.2"
+    semver "^5.3.0"
+
 babel-register@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-register/-/babel-register-6.26.0.tgz#6ed021173e2fcb486d7acb45c6009a856f647071"
@@ -1512,10 +1547,10 @@ cx-theme-material@^17.10.0:
   resolved "https://registry.yarnpkg.com/cx-theme-material/-/cx-theme-material-17.10.0.tgz#d332376763acb3401b5bf50d69c96f1761ceaa09"
 
 cx@^17.10.9:
-  version "17.10.13"
-  resolved "https://registry.yarnpkg.com/cx/-/cx-17.10.13.tgz#dc351abf340ea516f3ab29b592bf2263f638c8aa"
+  version "17.12.7"
+  resolved "https://registry.yarnpkg.com/cx/-/cx-17.12.7.tgz#f39c55bcd4dfd4dc9e7c35fc558052be8b5aef4a"
   dependencies:
-    intl-io "^0.2.7"
+    intl-io "^0.2.8"
     route-parser "^0.0.5"
 
 d@1:
@@ -2511,9 +2546,9 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
-intl-io@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/intl-io/-/intl-io-0.2.7.tgz#2fa80c57f8f99bb843e47db635d3109a30a6ede5"
+intl-io@^0.2.8:
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/intl-io/-/intl-io-0.2.8.tgz#d088eb9060c1a79c9b66e1215c4c1faa3484cc18"
 
 invariant@^2.2.0, invariant@^2.2.2:
   version "2.2.2"
@@ -3947,8 +3982,8 @@ rc@~1.1.6:
     strip-json-comments "~1.0.4"
 
 react-dom@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.0.0.tgz#9cc3079c3dcd70d4c6e01b84aab2a7e34c303f58"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -3956,8 +3991,8 @@ react-dom@^16.0.0:
     prop-types "^15.6.0"
 
 react@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

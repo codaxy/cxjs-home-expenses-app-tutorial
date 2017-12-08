@@ -56,17 +56,17 @@ export default <cx>
                     App
                 </dt>
                 <dd>
-                    <Link href="~/" url:bind="url">
+                    <Link href="~/" url-bind="url">
                         Home
                     </Link>
                 </dd>
                 <dd>
-                    <Link href="~/dashboard" url:bind="url">
+                    <Link href="~/dashboard" url-bind="url">
                         Dashboard
                     </Link>
                 </dd>
                     <dd>
-                    <Link href="~/about" url:bind="url">
+                    <Link href="~/about" url-bind="url">
                         About
                     </Link>
                     </dd>
@@ -76,7 +76,7 @@ export default <cx>
                         Admin
                     </dt>
                 <dd>
-                    <Link href="~/users" url:bind="url" match="prefix">
+                    <Link href="~/users" url-bind="url" match="prefix">
                         Users
                     </Link>
                 </dd>
@@ -140,18 +140,18 @@ import UserRoutes from './users';
 
 export default <cx>
     <Sandbox
-       key:bind="url"
-       storage:bind="pages"
+       key-bind="url"
+       storage-bind="pages"
        outerLayout={AppLayout}
        layout={FirstVisibleChildLayout}
     >
-        <Route route="~/" url:bind="url">
+        <Route route="~/" url-bind="url">
             <Default/>
         </Route>
-        <Route route="~/about" url:bind="url">
+        <Route route="~/about" url-bind="url">
             <About/>
         </Route>
-        <Route route="~/dashboard" url:bind="url">
+        <Route route="~/dashboard" url-bind="url">
             <Dashboard/>
         </Route>
         <UserRoutes/>
@@ -181,10 +181,10 @@ import List from './List';
 import Editor from './Editor';
 
 export default <cx>
-   <Route route="~/users" url:bind="url">
+   <Route route="~/users" url-bind="url">
       <List />
    </Route>
-   <Route route="~/users/:userId" url:bind="url">
+   <Route route="~/users/:userId" url-bind="url">
       <Editor />
    </Route>
 </cx>
@@ -197,7 +197,7 @@ The parts of the `route` that start with `:` are URL parameters whose values wil
 For example, the following URL `http://localhost:8088/users/1` would match the following route:
 
 ```jsx
-<Route route="~/users/:userId" url:bind="url">
+<Route route="~/users/:userId" url-bind="url">
     ...
 </Route>
 ```

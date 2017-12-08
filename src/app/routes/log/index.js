@@ -1,4 +1,4 @@
-import {HtmlElement, Grid, Button, LinkButton, Section} from 'cx/widgets';
+import { Grid, Button, LinkButton, Section } from 'cx/widgets';
 import {computable, bind} from 'cx/ui';
 import {enableMsgBoxAlerts} from 'cx/widgets';
 
@@ -17,7 +17,7 @@ export default <cx>
         bodyStyle="display: flex; flex-orientation: column"
     >
         <Grid
-            records:bind="entries"
+            records-bind="entries"
             lockColumnWidths
             scrollable
             buffered
@@ -52,7 +52,7 @@ export default <cx>
                     header: 'Actions',
                     align: 'center',
                     children: <cx>
-                        <LinkButton mod="hollow" href:tpl="~/entry/{$record.id}">
+                        <LinkButton mod="hollow" href-tpl="~/entry/{$record.id}">
                             Edit
                         </LinkButton>
                         <Button mod="hollow" 
