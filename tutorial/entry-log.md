@@ -132,7 +132,7 @@ export function saveBudgetEntries(entries) {
 
 ## Loading data to the Store
 
-The commont use pattern in Cx is to use one of the Controllers to load the data into the Store and then to have widgets access it though data binding.
+The commont use pattern in Cx is to use one of the Controllers to load the data into the Store and then to have widgets access it thorugh data binding.
 
 Since we are going to use the entries list in all parts of the application, it makes sense to load the data inside a top level Controller, that will be initialized as soon as the app is loaded.
 
@@ -162,6 +162,9 @@ export default class extends Controller {
     }
 }
 ```
+In the code snippet above, we import `loadBudetEntries` and `saveBudgetEntries` functions so we can call them in our Controller. Inside the `onInit` method, we use the `Store.init` method to load the entries into the Store, under the `entries` binding. 
+
+Finally, we add a trigger that will monitor the `entries` inside the Store, and each time they are modified, it will call the `saveBudgetEntries` function, passing it the new `entries` as an argument.
 
 Now if we start our app with `yarn start` and open up the browser console, we should see inside the `app-data` that our entries have been loaded successfully:
 
@@ -170,22 +173,22 @@ Now if we start our app with `yarn start` and open up the browser console, we sh
 </a>
 
 
-
 ## Grid widget
 
-Once we have our data source ready, we can proceed with creating a table to display it. First we'll just display the data, and then we'll add `Edit` and `Remove` actions.
+Once we have our data source ready, we can proceed with creating a table to display it. 
+
+#### app/routes/log/index.js
 
 ```jsx
-import {HtmlElement, Grid, Button, LinkButton, Section} from 'cx/widgets';
-import {computable} from 'cx/ui';
+import { HtmlElement, Grid, Section } from 'cx/widgets';
+import { computable } from 'cx/ui';
 
-import {categoryNames} from '../../data/categories';
+import { categoryNames } from '../../data/categories';
 
 export default <cx>
     <h2 putInto="header">Log</h2>
     <Section
         mod="card"
-        controller={Controller}
         style="height: 100%"
         bodyStyle="display: flex; flex-orientation: column"
     >
@@ -219,23 +222,16 @@ export default <cx>
                     format: "currency;;2",
                     align: 'right',
                     sortable: true
-                },
-                {
-                    header: 'Actions',
-                    align: 'center',
-                    items: <cx>
-                        <LinkButton mod="hollow" href-tpl="~/entry/{$record.id}">
-                            Edit
-                        </LinkButton>
-                        <Button mod="hollow" 
-                            onClick="remove"
-                            confirm="Are you sure you want to delete this entry?">
-                            Remove
-                        </Button>
-                    </cx>
                 }
             ]}
         />
     </Section>
 </cx>
 ```
+
+Let's analyse the code above. As mentioned earlier, the `putInto` property in `h3` widget tells Cx to place that widget inside the `header` area in our application layout.
+We are using a Section widget with `mod` property set to `card`. That means the Section widget will be assigned the `cxm-card` css class which is predefined for the material theme. This will apply borders and shadows to the Section widget and give it a more distinctive look. Notice how we are defining both `style` and `bodyStyle` properties. As explained in [Cx docs](https://docs.cxjs.io/widgets/sections#configuration), `style` rules will be applied to the wrapper div and `bodyStyle` to the body of the Section widget.
+To see how each of the mentioned properties actually affect the look of the Section widget, simply comment them out one at the time, and observe the changes. It's much more effective then to bore you with long textual explenations.
+
+Grid widget is pretty straight-forward to use. We pass it the list of entries via a Store binding, and define the columns that will be shown.
+
