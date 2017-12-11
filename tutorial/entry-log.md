@@ -182,6 +182,9 @@ Once we have our data source ready, we can proceed with creating a table to disp
 ```jsx
 import { HtmlElement, Grid, Section } from 'cx/widgets';
 import { computable } from 'cx/ui';
+
+import Controller from './Controller';
+
 import {categoryNames} from '../../data/categories';
 
 export default <cx>
@@ -262,6 +265,9 @@ There is one more thing we need to do to complete this part of the tutorial. To 
 ```jsx
 import { HtmlElement, Grid, Section } from 'cx/widgets';
 import { computable, enableCultureSensitiveFormatting } from 'cx/ui';
+
+import Controller from './Controller';
+
 import {categoryNames} from '../../data/categories';
 
 enableCultureSensitiveFormatting();
@@ -292,9 +298,10 @@ In order to be able to edit and remove a single entry, we need to add Actions co
 import { HtmlElement, Grid, Section, Button, LinkButton } from 'cx/widgets';
 import { computable, enableCultureSensitiveFormatting } from 'cx/ui';
 import { enableMsgBoxAlerts } from 'cx/widgets';
-import { categoryNames } from '../../data/categories';
 
 import Controller from './Controller';
+
+import { categoryNames } from '../../data/categories';
 
 enableCultureSensitiveFormatting();
 enableMsgBoxAlerts();
@@ -313,29 +320,7 @@ export default <cx>
             buffered
             style="flex: 1 0 0%"
             columns={[
-                {
-                    field: 'date',
-                    header: 'Date',
-                    format: 'date',
-                    sortable: true
-                },
-                {
-                    field: 'description',
-                    header: 'Description',
-                    style: 'width: 50%'
-                },
-                {
-                    header: 'Category',
-                    sortable: true,
-                    value: computable("$record.categoryId", id => categoryNames[id])
-                },
-                {
-                    field: 'amount',
-                    header: 'Amount',
-                    format: "currency;;2",
-                    align: 'right',
-                    sortable: true
-                },
+                ...
                 {
                     header: 'Actions',
                     align: 'center',
@@ -367,7 +352,6 @@ As for the Button widget, we are passing the name of the `Controller` method as 
 
 We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget:
 
-#### app/routes/log/index.js
 #### app/routes/log/index.js
 ```jsx
 import { HtmlElement, Grid, Section, Button, LinkButton } from 'cx/widgets';
@@ -408,5 +392,10 @@ export default class extends Controller {
     }
 }
 ```
+
+There are a couple of details we need to note about the `remove` method.
+* beside the Event object, it receives the `instance` that fired the event, and one of the properties is a `store` view that has access to the appropriate `$record`.
+* inside it, we are calling the Store.update method within the Controller to update the entries list.
+* the function that is passed to the `update` method is a pure funciton without any side effects, e.g. direct object or array mutations. It receives the original list of entries and returns a new copy with the given entry filtered out. This helps the Store to determine the state changes more efficiently.
 
 
