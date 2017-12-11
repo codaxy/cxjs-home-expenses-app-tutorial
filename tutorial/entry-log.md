@@ -305,7 +305,6 @@ export default <cx>
         mod="card"
         style="height: 100%"
         bodyStyle="display: flex; flex-orientation: column"
-        controller={Controller}
     >
         <Grid
             records-bind="entries"
@@ -366,7 +365,33 @@ As for the Button widget, we are passing the name of the `Controller` method as 
 * import the Controller and pass it to one of the parent components so it gets initilized.
 * define the `remove` method inside the Controller.
 
-We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget and define the `remove` method:
+We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget:
+
+#### app/routes/log/index.js
+#### app/routes/log/index.js
+```jsx
+import { HtmlElement, Grid, Section, Button, LinkButton } from 'cx/widgets';
+import { computable, enableCultureSensitiveFormatting } from 'cx/ui';
+import { enableMsgBoxAlerts } from 'cx/widgets';
+import { categoryNames } from '../../data/categories';
+
+import Controller from './Controller';
+
+enableCultureSensitiveFormatting();
+enableMsgBoxAlerts();
+
+export default <cx>
+    <h2 putInto="header">Log</h2>
+    <Section
+        mod="card"
+        style="height: 100%"
+        bodyStyle="display: flex; flex-orientation: column"
+        controller={Controller}
+    >
+    ...
+```
+
+ and define the `remove` method inside it:
 
 ```js
 import { Controller } from 'cx/ui';
