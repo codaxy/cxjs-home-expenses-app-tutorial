@@ -182,8 +182,7 @@ Once we have our data source ready, we can proceed with creating a table to disp
 ```jsx
 import { HtmlElement, Grid, Section } from 'cx/widgets';
 import { computable } from 'cx/ui';
-
-import { categoryNames } from '../../data/categories';
+import {categoryNames} from '../../data/categories';
 
 export default <cx>
     <h2 putInto="header">Log</h2>
@@ -211,7 +210,6 @@ export default <cx>
                     style: 'width: 50%'
                 },
                 {
-                    field: 'categoryId',
                     header: 'Category',
                     sortable: true,
                     value: computable("$record.categoryId", id => categoryNames[id])
@@ -245,7 +243,7 @@ Grid widget is pretty straight-forward to use. We'll go through the list of prop
     * `header` - Text to be shown in the column header.
     * `format` - Template used to format the value. Cx offers rich support for value formatting. Here we are applying the currency format, which means all the values will be prefixed with a dollar sign and rounded to two decimal places. To learn more about the formatting rules, check the [docs](https://docs.cxjs.io/concepts/formatting#formatting).
     * `sortable` - Set to true if the column is sortable.
-    * `value` - Column value to be displayed. By default, this is the value contained in the record field. Since our entries don't store the actual category names, but rather their ids, this enables us to use the `computable` function and get the category name from the `categoryNames` map. 
+    * `value` - Column value to be displayed. By default, this is the value contained in the record field. The `field` property is not necessary when using the `value` property. Since our entries don't store the actual category names, but rather their ids, this enables us to use the `computable` function and get the category name from the `categoryNames` map.
     
 The above example shows how `computable` utility function enables us to use local variables in combination with the values from the Store, which would not be possible if we used expressions or templates.
 First argument for the `computable` function is the binding under which our category id is available (`$record.categoryId`). As the Grid widget iterates through the list of records, each record is made available inside the Store under that record alias (`$record`). It is interesting to notice how we can use the dot notation to acces just a single field within the record. This line does the same: 
@@ -257,31 +255,133 @@ As you can see, when using the dot notation withind the binding, we get free saf
 A complete list of available Grid and Column properties can be found [here](https://docs.cxjs.io/widgets/grids#configuration).
 
 
-There is one more thing we need to do to complete this part of the tutorial. To support minimal application shells, culture-sensitive number and date formats are not automatically registered. Formatting is auto-enabled if `NumberField`, `DateField` or any other culture dependent widget is used, otherwise it needs to be enabled using the `enableCultureSensitiveFormatting`. The most convenient place to do it is the app entry point:
+There is one more thing we need to do to complete this part of the tutorial. To support minimal application shells, culture-sensitive number and date formats are not automatically registered. Formatting is auto-enabled if `NumberField`, `DateField` or any other culture dependent widget is used, otherwise it needs to be enabled using the `enableCultureSensitiveFormatting`:
 
 #### app/index.js
-```js
-import { Store } from 'cx/data';
-import { Url, History, Widget, startAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
-import { Timing, Debug } from 'cx/util';
-import {Tooltip, enableTooltips} from 'cx/widgets';
-//css
-import "./index.scss";
 
-//material theme
-import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
-enableMaterialLabelPlacement();
-enableMaterialHelpPlacement();
+```jsx
+import { HtmlElement, Grid, Section } from 'cx/widgets';
+import { computable, enableCultureSensitiveFormatting } from 'cx/ui';
+import {categoryNames} from '../../data/categories';
 
-// enable culture sensitive formatting
 enableCultureSensitiveFormatting();
 
-//store
+export default <cx>
+    <h2 putInto="header">Log</h2>
+    <Section
+        mod="card"
+        style="height: 100%"
+        bodyStyle="display: flex; flex-orientation: column"
+    >
 ...
 ```
+**Note:** If culture sensitive formatting is used in more than one part of the application, we can also place the `enableCultureSensitiveFormatting` call into the main index file (`app/index.js`).
 
 Our Log page should now look something like this:
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG" alt="Console screenshot" />
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG" alt="Grid showing list of entries" />
 </a>
+
+## Adding custom widgets to Grid rows
+
+In order to be able to edit and remove a single entry, we need to add Actions column to the Grid. Inside it, we'll place two buttons: Edit and Remove. Let's examine the code for that:
+
+#### app/routes/log/index.js
+```jsx
+import { HtmlElement, Grid, Section, Button, LinkButton } from 'cx/widgets';
+import { computable, enableCultureSensitiveFormatting } from 'cx/ui';
+import { enableMsgBoxAlerts } from 'cx/widgets';
+import { categoryNames } from '../../data/categories';
+
+import Controller from './Controller';
+
+enableCultureSensitiveFormatting();
+enableMsgBoxAlerts();
+
+export default <cx>
+    <h2 putInto="header">Log</h2>
+    <Section
+        mod="card"
+        style="height: 100%"
+        bodyStyle="display: flex; flex-orientation: column"
+        controller={Controller}
+    >
+        <Grid
+            records-bind="entries"
+            lockColumnWidths
+            scrollable
+            buffered
+            style="flex: 1 0 0%"
+            columns={[
+                {
+                    field: 'date',
+                    header: 'Date',
+                    format: 'date',
+                    sortable: true
+                },
+                {
+                    field: 'description',
+                    header: 'Description',
+                    style: 'width: 50%'
+                },
+                {
+                    header: 'Category',
+                    sortable: true,
+                    value: computable("$record.categoryId", id => categoryNames[id])
+                },
+                {
+                    field: 'amount',
+                    header: 'Amount',
+                    format: "currency;;2",
+                    align: 'right',
+                    sortable: true
+                },
+                {
+                    header: 'Actions',
+                    align: 'center',
+                    items: <cx>
+                        <LinkButton mod="hollow" href-tpl="~/entry/{$record.id}">
+                            Edit
+                        </LinkButton>
+                        <Button mod="hollow" 
+                            onClick="remove"
+                            confirm="Are you sure you want to delete this entry?">
+                            Remove
+                        </Button>
+                    </cx>
+                }
+            ]}
+        />
+    </Section>
+</cx>
+```
+
+For the Actions column, instead of `value` and `field`, we are using the `items` property to define the column content. Here we can define a custom widget tree enclosed inside the pair of `cx` tags. This allows easy composition of other Cx widgets within the Grid row. 
+
+Here we are using a `LinkButton` for the Edit action and a `Button` widget for the Remove action.
+The `LinkButton` requires a `href` property containing the target URL. In this case, we are using a template to define a custom URL for each entry. We have yet to create a target route for these URLs.
+
+As for the Button widget, we are passing the name of the `Controller` method as an `onClick` property. In order for this to work, there are two things we need to do:
+* import the Controller and pass it to one of the parent components so it gets initilized.
+* define the `remove` method inside the Controller.
+
+We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget and define the `remove` method:
+
+```js
+import { Controller } from 'cx/ui';
+
+export default class extends Controller {
+    onInit() {
+
+    }
+
+    remove(e, {store}) {
+        let id = store.get('$record.id');
+
+        this.store.update('entries', entries => entries.filter(e => e.id !== id));
+    }
+}
+```
+
+

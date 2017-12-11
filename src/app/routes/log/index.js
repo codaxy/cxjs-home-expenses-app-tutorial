@@ -48,7 +48,6 @@ export default <cx>
                     sortable: true
                 },
                 {
-
                     header: 'Actions',
                     align: 'center',
                     children: <cx>
