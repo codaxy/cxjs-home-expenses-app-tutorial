@@ -1,9 +1,9 @@
 # Entry log page - simple grid showing all of the entries
-
-* Grid widget   
+  
 * Fake data generator
 * Loading data to the Store
-* Connect view components to the store
+* Grid widget
+
 
 In this part of the tutorila we will generate fake data for our app and display it in a table.
 
@@ -14,7 +14,7 @@ In this part of the tutorila we will generate fake data for our app and display 
 
 ## Fake data generator
 
-First, let's add the list of expenses categories to the `data` folder:
+First, let's add the list of expense categories to the `data` folder:
 
 #### app/data/categories.js
 ```js
@@ -72,7 +72,7 @@ Here we are simply making category names available both as an array of objects a
 Next, inside the same folder, add the fake data generator:
 
 #### app/data/entries.js
-```
+```js
 import uid from 'uid';
 import {categories} from './categories';
 
@@ -230,8 +230,58 @@ export default <cx>
 ```
 
 Let's analyse the code above. As mentioned earlier, the `putInto` property in `h3` widget tells Cx to place that widget inside the `header` area in our application layout.
-We are using a Section widget with `mod` property set to `card`. That means the Section widget will be assigned the `cxm-card` css class which is predefined for the material theme. This will apply borders and shadows to the Section widget and give it a more distinctive look. Notice how we are defining both `style` and `bodyStyle` properties. As explained in [Cx docs](https://docs.cxjs.io/widgets/sections#configuration), `style` rules will be applied to the wrapper div and `bodyStyle` to the body of the Section widget.
-To see how each of the mentioned properties actually affect the look of the Section widget, simply comment them out one at the time, and observe the changes. It's much more effective then to bore you with long textual explenations.
+We are using a Section widget with `mod` property set to `card`. That means the Section widget will be assigned the `cxm-card` css class which is predefined for the material theme. This will apply borders and shadows to the Section widget and give it a more distinctive look. Also, notice how we are defining both `style` and `bodyStyle` properties. As explained in [Cx docs](https://docs.cxjs.io/widgets/sections#configuration), `style` rules will be applied to the wrapper div and `bodyStyle` to the body of the Section widget.
 
-Grid widget is pretty straight-forward to use. We pass it the list of entries via a Store binding, and define the columns that will be shown.
+To see how each of the mentioned properties actually affect the look of the Section widget, simply comment them out one at the time and observe the changes. 
 
+Grid widget is pretty straight-forward to use. We'll go through the list of properties we are using:
+* `records` - Store binding for the list of entries.
+* `scrollable` - Set to true to add a vertical scroll and a fixed header to the grid. Scrollable grids shoud have height or max-height set. Otherwise, the grid will grow to accomodate all rows.
+* `buffered` - Set to true to render only visible rows on the screen. This greatly improves performance for grids with a lot of data. Works only if the grid is scrollable.
+* `lockColumnWidths` - When set to true, column widths are locked after the first render. This is useful when we are buffering the records, since the Grid would constantly adjust column widths to the records currently in the buffer, which would cause it to twitch while scrolling. Comment this property out to see for yourself.
+* `style` - By applying `flex: 1 0 0%` rure, we ensure the Grid will take up the available screen height.
+* `columns` - An array of configuration objects that define the columns for the Grid. Below we'll go through the column properties used and explain what they do:
+    * `field` - Name of the property inside the record to be displayed. Used for displaying or sorting.
+    * `header` - Text to be shown in the column header.
+    * `format` - Template used to format the value. Cx offers rich support for value formatting. Here we are applying the currency format, which means all the values will be prefixed with a dollar sign and rounded to two decimal places. To learn more about the formatting rules, check the [docs](https://docs.cxjs.io/concepts/formatting#formatting).
+    * `sortable` - Set to true if the column is sortable.
+    * `value` - Column value to be displayed. By default, this is the value contained in the record field. Since our entries don't store the actual category names, but rather their ids, this enables us to use the `computable` function and get the category name from the `categoryNames` map. 
+    
+The above example shows how `computable` utility function enables us to use local variables in combination with the values from the Store, which would not be possible if we used expressions or templates.
+First argument for the `computable` function is the binding under which our category id is available (`$record.categoryId`). As the Grid widget iterates through the list of records, each record is made available inside the Store under that record alias (`$record`). It is interesting to notice how we can use the dot notation to acces just a single field within the record. This line does the same: 
+
+`computable("$record", entry => categoryNames[entry.categoryId ? entry.categoryId : undefined])`
+
+As you can see, when using the dot notation withind the binding, we get free safety checks against undefined property errors (for any depth level!), which is a really cool Cx feature.
+
+A complete list of available Grid and Column properties can be found [here](https://docs.cxjs.io/widgets/grids#configuration).
+
+
+There is one more thing we need to do to complete this part of the tutorial. To support minimal application shells, culture-sensitive number and date formats are not automatically registered. Formatting is auto-enabled if `NumberField`, `DateField` or any other culture dependent widget is used, otherwise it needs to be enabled using the `enableCultureSensitiveFormatting`. The most convenient place to do it is the app entry point:
+
+#### app/index.js
+```js
+import { Store } from 'cx/data';
+import { Url, History, Widget, startAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
+import { Timing, Debug } from 'cx/util';
+import {Tooltip, enableTooltips} from 'cx/widgets';
+//css
+import "./index.scss";
+
+//material theme
+import {enableMaterialLabelPlacement, enableMaterialHelpPlacement} from 'cx-theme-material';
+enableMaterialLabelPlacement();
+enableMaterialHelpPlacement();
+
+// enable culture sensitive formatting
+enableCultureSensitiveFormatting();
+
+//store
+...
+```
+
+Our Log page should now look something like this:
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG" alt="Console screenshot" />
+</a>
