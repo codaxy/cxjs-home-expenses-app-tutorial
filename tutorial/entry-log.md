@@ -346,9 +346,12 @@ For the Actions column, instead of `value` and `field`, we are using the `items`
 Here we are using a `LinkButton` for the Edit action and a `Button` widget for the Remove action.
 The `LinkButton` requires a `href` property containing the target URL. In this case, we are using a template to define a custom URL for each entry. We have yet to create a target route for these URLs.
 
-As for the Button widget, we are passing the name of the `Controller` method as an `onClick` property. In order for this to work, there are two things we need to do:
-* import the Controller and pass it to one of the parent components so it gets initilized.
-* define the `remove` method inside the Controller.
+### Callback methods
+
+It's common practice to concentrate business logic required for views in a Controller. This helps keeping the view code tidy. Cx enables us to use the controller methods as callback functions simply by passing the name of the controller method as an `onClick` property. 
+In order for this to work, there are two things we need to do:
+* pass the Controller to one of the ancestor components. This means that an instance of that Controller will be initilized each time the component renders. The same controller instance will also be passed to all child components. Beacuse of this, when using controller method names of callbacks, it's possible to invoke methods defined higher in the ancestor tree.
+* define the appropriate method inside the Controller (in this case the `remove` method).
 
 We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget:
 
@@ -375,8 +378,9 @@ export default <cx>
     ...
 ```
 
- and define the `remove` method inside it:
+And inside the Controller we define the `remove` method:
 
+#### app/routes/log/Controller.js
 ```js
 import { Controller } from 'cx/ui';
 
@@ -385,7 +389,7 @@ export default class extends Controller {
 
     }
 
-    remove(e, {store}) {
+    remove(e, {store}) { // we are destructuring the store property from the instance
         let id = store.get('$record.id');
 
         this.store.update('entries', entries => entries.filter(e => e.id !== id));
@@ -393,9 +397,12 @@ export default class extends Controller {
 }
 ```
 
-There are a couple of details we need to note about the `remove` method.
-* beside the Event object, it receives the `instance` that fired the event, and one of the properties is a `store` view that has access to the appropriate `$record`.
+There are a couple of things we should know about the callback method:
+* beside the `event` object, it also receives the `instance` of the widget that fired the event (in this case the Button). The `instance` contains the `store` and the `controller` properties that hold the references to the Store and Controller respectively.
 * inside it, we are calling the Store.update method within the Controller to update the entries list.
-* the function that is passed to the `update` method is a pure funciton without any side effects, e.g. direct object or array mutations. It receives the original list of entries and returns a new copy with the given entry filtered out. This helps the Store to determine the state changes more efficiently.
+
+The function that is passed to the `Store.update` method is a pure funciton without any side effects, e.g. direct object or array mutations. It receives the original list of entries from the Store and returns a new copy with the given entry filtered out. This helps the Store to determine the state changes more efficiently.
+
+It is important to understand that the `instance` and the Controller have different store views. This means that `store.get("$record.id")` and `this.store.get("$record.id")` do not necessarily return the same value. That is why we are using instance store so we can be sure that we are reading the correct record id, and the controller store to update the entries list. 
 
 
