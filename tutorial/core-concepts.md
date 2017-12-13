@@ -31,7 +31,7 @@ If you would like to know more, check out the Cx documentation for the [Store](h
 The Store is initialized inside the main `index.js` file:
 
 #### app/index.js
-```
+```js
 import { Store } from 'cx/data';
 import { Url, History, Widget, startAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
 ...
@@ -74,20 +74,20 @@ Here we'll briefly explore the ones we will be using most often. For more, check
 
 Two-way data binding is commonly used in forms, as it supports both read and write operations. Let's use a checkbox for illustration. To display a checkbox, we need to know whether it's checked or not. That's the read operation. If the user clicks the checkbox, the corresponding value needs to be changed, and that's the write operation.
 
-```
+```jsx
 <Checkbox value-bind='intro.core.cb1'>Checkbox</Checkbox>
 ```
 By appending a `-bind` suffix to the `value` property, we are basically telling Cx to create a two-way data binding between the Checkbox and the Store. In this case, instead of assigning `true` or `false` to the `value` property, we are entering a string that represents a path inside the Store where that value will be kept. 
 The default value for the Checkbox state in this case would be `false`. If we want to make it `true` instead, we would need to use the functional synthax for creating a binding:
 
-```
+```jsx
 <Checkbox value={bind('intro.core.cb2', true)}>Checkbox</Checkbox>
 ```
 In this example, instead of using the suffix, we are calling a `bind` function and passing it two parameters, the path, and the default value.
 
 Another way to do this would be to assign an object literal with `bind` and `defaultValue` properties to the `value` attribute:
 
-```
+```jsx
 <Checkbox value={{ bind: 'intro.core.cb3', defaultValue: true }}>Checkbox</Checkbox>
 ```
 
@@ -122,7 +122,7 @@ Templates are data expressions which return strings. They are a convenient optio
 
 Computables are somewhat simillar to expressions and templates, since they also make it possible to calculate dynamic values at runtime. 
 
-```
+```jsx
 <div preserveWhitespace>
    <NumberField value-bind='intro.core.a' placeholder="A" />
    +
@@ -141,7 +141,7 @@ Controllers are used to concentrate business logic required for views. This incl
 
 #### Controller initialization example
 
-```
+```jsx
 import { Controller } from "cx/ui";
 import { HtmlElement } from "cx/widgets";
 

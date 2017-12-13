@@ -37,22 +37,17 @@ The app was made using Cx material theme and out of the box components, with min
 
 Here are a couple of screenshots of our finished app with descriptions.
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/dashboard.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/dashboard.PNG" alt="Dashboard" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/dashboard.PNG" alt="Dashboard" />
 
 Dashboard
 
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG" alt="Add expense page" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-expense.PNG" alt="Add expense page" />
 
 Add expense page
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG" alt="Log page" />
-</a>
+
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG" alt="Log page" />
 
 Log page
 
@@ -62,7 +57,7 @@ Log page
 
 The entries are stored as an array of objects with its properties holding the entry information: 
 
-```
+```js
 entries = [
     {
         id: "99yu38b",
@@ -86,7 +81,7 @@ This model lets us easilty perform queris and filter entries by different parame
 The categories will be stored in a seperate array:
 
 #### app/data/categories.js
-```
+```js
 export const categories = [
     {
         id: 'children',
@@ -137,7 +132,7 @@ For testing purposes, we will use a function that generates an array of 1000 fak
 
 #### app/data/entries.js
 
-```
+```js
 import uid from 'uid';
 import {categories} from './categories';
 

@@ -88,9 +88,7 @@ export default <cx>
 
 It is interesting to notice that our `header` and `aside` elements come **after** the `main` element. The reason is that our scaffold app is using `fixed` positioning for `header` and `aside` elements with partial overlapping, and this ensures the correct stacking order: `main` at the bottom (gray background), `aside` at the top (left sidebar) and the `header` in between (over `main` and under `aside`). Also notice that our layout has two `ContentPlaceholders`, one in the `header` and the other in the `main` section.
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG" alt="Default layout" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/default-layout.PNG" alt="Default layout" />
 
 Default layout
 
@@ -287,9 +285,8 @@ cx add route log
 ```
 
 Your folder structure should now look like this:
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-routes-folder-structure.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/add-routes-folder-structure" alt="Folder structure after adding routes" />
-</a>
+
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/add-routes-folder-structure" alt="Folder structure after adding routes" />
 
 `cx add route entry` creates a new folder (`app/routes/entry`) and adds template files (index.js, index.scss and Controller.js) for the new route. Naturally, you can also create the files and folders manually.
 

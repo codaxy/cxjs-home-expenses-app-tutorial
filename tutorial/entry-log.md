@@ -8,9 +8,7 @@
 
 In this part of the tutorila we will generate fake data for our app and display it in a table.
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Log page" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Log page" />
 
 
 ## Fake data generator
@@ -169,9 +167,7 @@ Finally, we add a trigger that will monitor the `entries` inside the Store, and 
 
 Now if we start our app with `yarn start` and open up the browser console, we should see inside the `app-data` that our entries have been loaded successfully:
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG" alt="Console screenshot" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG" alt="Console screenshot" />
 
 
 ## Grid widget
@@ -291,9 +287,8 @@ export default <cx>
 
 Our Log page should now look something like this:
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG" alt="Grid showing list of entries" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG" alt="Grid showing list of entries" />
+
 
 ## Adding Edit and Remove actions
 
@@ -444,8 +439,6 @@ Finally, to fix the Remove button positioning inside the grid row, we need to ov
 
 Our Log page should now look something like this:
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Grid with Actions column" />
-</a>
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Grid with Actions column" />
 
 Next, we will create a form for [editing log entries](tutorial/edit-entry.md).
