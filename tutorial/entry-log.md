@@ -8,8 +8,8 @@
 
 In this part of the tutorila we will generate fake data for our app and display it in a table.
 
-<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG">
-    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/log.PNG" alt="Log page" />
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Log page" />
 </a>
 
 
