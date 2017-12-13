@@ -230,26 +230,26 @@ import Log from './log';
 export default <cx>
     <PureContainer layout={FirstVisibleChildLayout}>
         <Sandbox
-            key={bind("url")}
-            storage={bind("pages")}
+            key-bind="url"
+            storage-bind="pages"
             outerLayout={AppLayout}
             layout={FirstVisibleChildLayout}
         >
             <RedirectRoute
                 route="~/"
-                url={bind("url")}
+                url-bind="url"
                 redirect="~/dashboard"
             />
 
-            <Route route="~/entry/:id" url={bind("url")}>
+            <Route route="~/entry/:id" url-bind="url" >
                 <Entry />
             </Route>
 
-            <Route route="~/log" url={bind("url")}>
+            <Route route="~/log" url-bind="url" >
                 <Log />
             </Route>
 
-            <Route route="~/dashboard" url={bind("url")}>
+            <Route route="~/dashboard" url-bind="url" >
                 <Dashboard />
             </Route>
 

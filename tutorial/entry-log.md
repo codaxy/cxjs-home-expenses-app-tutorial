@@ -2,7 +2,7 @@
   
 * [Fake data generator](#fake-data-generator)
 * [Loading data to the Store](#loading-data-to-the-store)
-* [Grid widget](#grid-widget)
+* [Using Grid to display data](#using-grid-to-display-data)
 * [Adding Edit and Remove actions](#adding-edit-and-remove-actions)
 
 
@@ -170,7 +170,7 @@ Now if we start our app with `yarn start` and open up the browser console, we sh
 <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/entries-loaded.PNG" alt="Console screenshot" />
 
 
-## Grid widget
+## Using Grid to display data
 
 Once we have our data source ready, we can proceed with creating a table to display it. 
 

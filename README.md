@@ -38,11 +38,11 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
 * [Entry log page](tutorial/entry-log.md) 
    * Fake data generator
    * Loading data to the Store
-   * Grid widget   
+   * Using Grid to display data 
    * Adding Edit and Remove actions
 
 * [Edit entry page](tutorial/edit-entry.md) 
-   * Route parameters + Sandbox (edit entry example)   
+   * Route parameters + Sandbox (edit entry example)
    * Build the form (buttons, text fields, number fields, date fields, lookup fields...)
    * Form validation
    * Data loading 
