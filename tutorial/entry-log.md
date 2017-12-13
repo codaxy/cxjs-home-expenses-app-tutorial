@@ -1,8 +1,9 @@
 # Entry log page - simple grid showing all of the entries
   
-* Fake data generator
-* Loading data to the Store
-* Grid widget
+* [Fake data generator](#fake-data-generator)
+* [Loading data to the Store](#loading-data-to-the-store)
+* [Grid widget](#grid-widget)
+* [Adding Edit and Remove actions](#adding-edit-and-remove-actions)
 
 
 In this part of the tutorila we will generate fake data for our app and display it in a table.
@@ -249,14 +250,19 @@ Grid widget is pretty straight-forward to use. We'll go through the list of prop
     * `value` - Column value to be displayed. By default, this is the value contained in the record field. The `field` property is not necessary when using the `value` property. Since our entries don't store the actual category names, but rather their ids, this enables us to use the `computable` function and get the category name from the `categoryNames` map.
     
 The above example shows how `computable` utility function enables us to use local variables in combination with the values from the Store, which would not be possible if we used expressions or templates.
-First argument for the `computable` function is the binding under which our category id is available (`$record.categoryId`). As the Grid widget iterates through the list of records, each record is made available inside the Store under that record alias (`$record`). It is interesting to notice how we can use the dot notation to acces just a single field within the record. This line does the same: 
+First argument for the `computable` function is the binding under which our category id is available (`$record.categoryId`). 
+
+As Grid widget iterates through the list of records, for each record the following two values are made available inside the Store:
+* `$record` - bound to the current item in the collection,
+* `$index` - holds the index of the current item in the collection. 
+
+It is interesting to notice how we can use the dot notation to acces just the `categoryId` of the record and then use it to get the category name via a `computable`. This line does the same: 
 
 `computable("$record", entry => categoryNames[entry.categoryId ? entry.categoryId : undefined])`
 
-As you can see, when using the dot notation withind the binding, we get free safety checks against undefined property errors (for any depth level!), which is a really cool Cx feature.
+But, as you can see, when using the dot notation withind the binding, we get free safety checks against undefined property errors (for any depth level!), which is a really cool Cx feature.
 
 A complete list of available Grid and Column properties can be found [here](https://docs.cxjs.io/widgets/grids#configuration).
-
 
 There is one more thing we need to do to complete this part of the tutorial. To support minimal application shells, culture-sensitive number and date formats are not automatically registered. Formatting is auto-enabled if `NumberField`, `DateField` or any other culture dependent widget is used, otherwise it needs to be enabled using the `enableCultureSensitiveFormatting`:
 
@@ -289,9 +295,9 @@ Our Log page should now look something like this:
     <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/basic-grid.PNG" alt="Grid showing list of entries" />
 </a>
 
-## Adding custom widgets to Grid rows
+## Adding Edit and Remove actions
 
-In order to be able to edit and remove a single entry, we need to add Actions column to the Grid. Inside it, we'll place two buttons: Edit and Remove. Let's examine the code for that:
+In order to be able to edit and remove a single entry, we'll add Actions column to the Grid. Inside it, we'll place two buttons: Edit and Remove. Let's examine the code for that:
 
 #### app/routes/log/index.js
 ```jsx
@@ -348,12 +354,7 @@ The `LinkButton` requires a `href` property containing the target URL. In this c
 
 ### Callback methods
 
-It's common practice to concentrate business logic required for views in a Controller. This helps keeping the view code tidy. Cx enables us to use the controller methods as callback functions simply by passing the name of the controller method as an `onClick` property. 
-In order for this to work, there are two things we need to do:
-* pass the Controller to one of the ancestor components. This means that an instance of that Controller will be initilized each time the component renders. The same controller instance will also be passed to all child components. Beacuse of this, when using controller method names of callbacks, it's possible to invoke methods defined higher in the ancestor tree.
-* define the appropriate method inside the Controller (in this case the `remove` method).
-
-We already have a Controller created and imported as part of the route template. Now we just need to pass it to the `Section` widget:
+We are passing the previously defined Controller to the Section widget (`controller={Controller}`). By passing the Controller to one of the top level components, we ensure that an instance of that Controller will be initilized each time that component renders. The same controller instance will also be passed down to all child components. Beacuse of this, we can use the `remove` method defined in a controller higher in the ancestor tree to set up the Remove action for Grid rows.
 
 #### app/routes/log/index.js
 ```jsx
@@ -378,7 +379,23 @@ export default <cx>
     ...
 ```
 
-And inside the Controller we define the `remove` method:
+This is acutally a common practice in Cx, to concentrate business logic for a view in a Controller passed to one of the top level components of that view tree. This helps keeping the view code tidy. 
+
+Cx enables us to use the controller methods as callback functions simply by passing the name of the controller method as an `onClick` property:
+
+```jsx
+<Button 
+    mod="hollow" 
+    onClick="remove"
+    confirm="Are you sure you want to delete this entry?"
+>
+    Remove
+</Button>
+```
+
+We are also using the `confirm` property, which if set, tells Cx to display a confirmation window with two options (yes and no).
+
+Now let's take a closer look at the Controller and its `remove` method:
 
 #### app/routes/log/Controller.js
 ```js
@@ -389,7 +406,7 @@ export default class extends Controller {
 
     }
 
-    remove(e, {store}) { // we are destructuring the store property from the instance
+    remove(e, {store}) {
         let id = store.get('$record.id');
 
         this.store.update('entries', entries => entries.filter(e => e.id !== id));
@@ -397,12 +414,36 @@ export default class extends Controller {
 }
 ```
 
-There are a couple of things we should know about the callback method:
-* beside the `event` object, it also receives the `instance` of the widget that fired the event (in this case the Button). The `instance` contains the `store` and the `controller` properties that hold the references to the Store and Controller respectively.
-* inside it, we are calling the Store.update method within the Controller to update the entries list.
+Event handlers in Cx, beside the `event` object, also receive the `instance` of the Cx widget that fired the event (in this case the Button). The `instance`, among other things, contains the `store` and the `controller` properties that hold the references to the Store and the Controller instances.
 
-The function that is passed to the `Store.update` method is a pure funciton without any side effects, e.g. direct object or array mutations. It receives the original list of entries from the Store and returns a new copy with the given entry filtered out. This helps the Store to determine the state changes more efficiently.
+In `remove` method's signature we are using JavaScript Object destructuring feature to get just the `store` property from the `instance`.
 
-It is important to understand that the `instance` and the Controller have different store views. This means that `store.get("$record.id")` and `this.store.get("$record.id")` do not necessarily return the same value. That is why we are using instance store so we can be sure that we are reading the correct record id, and the controller store to update the entries list. 
+It is important to understand that the `instance` and the Controller have different store views. This means that `store.get('$record.id')` and `this.store.get('$record.id')` do not necessarily return the same value. In our case, the Button was instantiated inside the Grid and therefore its store view has access to the appropriate `$record` value. That is why we are using instance store to get the record id:
 
+```
+let id = store.get('$record.id');
+```
+And the controller store to update the entries list:
 
+```
+this.store.update('entries', entries => entries.filter(e => e.id !== id));
+```
+
+The function that is passed to the [`Store.update`](https://docs.cxjs.io/concepts/store#-code-update-code-) method has to be [pure](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976), without any side effects, e.g. direct object or array mutations. It receives the original list of entries from the Store and returns a new copy with the given entry filtered out. This helps the Store to determine the state changes more efficiently.
+
+Finally, to fix the Remove button positioning inside the grid row, we need to override its CSS style:
+
+#### app/routes/log/index.scss
+```scss
+.cxb-button {
+    vertical-align: top;
+}
+```
+
+Our Log page should now look something like this:
+
+<a href="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG">
+    <img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/grid-with-actions-column.PNG" alt="Grid with Actions column" />
+</a>
+
+Next, we will create a form for [editing log entries](tutorial/edit-entry.md).

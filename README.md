@@ -35,9 +35,11 @@ If you get stuck, our CxJS slack channel is a great way to get quick help. Also,
     * Routes
     * Links
 
-* [Entry log page - simple grid showing all of the entries](tutorial/entry-log.md) 
+* [Entry log page](tutorial/entry-log.md) 
+   * Fake data generator
+   * Loading data to the Store
    * Grid widget   
-   * Connect view components to the store
+   * Adding Edit and Remove actions
 
 * [Edit entry page](tutorial/edit-entry.md) 
    * Route parameters + Sandbox (edit entry example)   
