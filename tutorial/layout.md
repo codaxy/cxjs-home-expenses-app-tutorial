@@ -286,7 +286,7 @@ cx add route log
 
 Your folder structure should now look like this:
 
-<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/add-routes-folder-structure.PNG" alt="Folder structure after adding routes" />
+<img src="https://github.com/codaxy/cxjs-home-expenses-app-tutorial/blob/master/tutorial/screenshots/add-routes-folder-structure.PNG" alt="Folder structure after adding routes" />
 
 `cx add route entry` creates a new folder (`app/routes/entry`) and adds template files (index.js, index.scss and Controller.js) for the new route. Naturally, you can also create the files and folders manually.
 
