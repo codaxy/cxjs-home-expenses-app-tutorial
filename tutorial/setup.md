@@ -92,8 +92,6 @@ yarn add cx-theme-material
 
 This will save the theme package to the `node_modules` folder and update our `package.json` file.
 
-Since Material theme has it's own icons and fonts, we need to 
-
 Next, we need to update the `index.scss` file inside the `app` folder:
 
 #### app/index.scss
