@@ -179,7 +179,28 @@ We should now be able to see a form with all of the entry data:
 
 ## Form validation
 
-Before allowing the user to save the changes, we need to make sure that all the required information has been filled in. We have been using the `required` attributes to define which fields are obligatory. Now we can simply use the `ValidationGroup` component that will check for us if the form is valid:
+Before allowing the user to save the changes, we need to make sure that all the required information has been filled in. 
+We have been using the `required` attributes to define which fields are obligatory. Now we can simply use the [`ValidationGroup`](https://docs.cxjs.io/widgets/validation-groups) component 
+that will check for us if the form is valid. 
+`ValidationGroup` uses a `valid-bind="$page.valid"` binding to track the form state in the application `Store`. 
+We can then use that value to enable/disable the `Save` Button:
+
+```jsx
+    ...
+    <ValidationGroup valid={bind("$page.valid")}>
+        ...
+        <Button
+            mod="primary"
+            onClick="save"
+            disabled={expr('!{$page.valid}')}
+            text="Save"
+        />
+        ...
+    </ValidationGroup>
+    ...
+```
+
+After adding the `Cancel` button as well, our `index.js` file looks like this:
 
 #### app/routes/entry/index.js
 ```jsx
@@ -190,7 +211,10 @@ import {
     LookupField, 
     TextField, 
     FlexCol,
-    Section
+    FlexRow,
+    Section,
+    ValidationGroup,
+    Button
 } from 'cx/widgets';
 
 import Controller from './Controller';
@@ -203,36 +227,55 @@ export default (
             <Section
                 mod="card"
             >
-                <FlexCol>
-                    <DateField
-                        label="Date"
-                        value-bind="$page.entry.date"
-                        required
-                        autoFocus
-                    />
+                <ValidationGroup
+                    valid-bind="$page.valid"
+                >
+                    <FlexCol>
+                        <DateField
+                            label="Date"
+                            value-bind="$page.entry.date"
+                            required
+                            autoFocus
+                        />
 
-                    <NumberField
-                        value-bind="$page.entry.amount"
-                        label="Amount"
-                        format="currency;;2"
-                        placeholder="$"
-                        required
-                    />
+                        <NumberField
+                            value-bind="$page.entry.amount"
+                            label="Amount"
+                            format="currency;;2"
+                            placeholder="$"
+                            required
+                        />
 
-                    <LookupField
-                        value-bind='$page.entry.categoryId'
-                        options={categories}
-                        optionTextField="name"
-                        label="Category"
-                        required
-                    />
+                        <LookupField
+                            value-bind='$page.entry.categoryId'
+                            options={categories}
+                            optionTextField="name"
+                            label="Category"
+                            required
+                        />
 
-                    <TextField
-                        value-bind='$page.entry.description'
-                        label="Description"
-                        style="width: 100%; max-width: 500px"
-                    />
-                </FlexCol>
+                        <TextField
+                            value-bind='$page.entry.description'
+                            label="Description"
+                            style="width: 100%; max-width: 500px"
+                        />
+
+                        <br/>
+                        <FlexRow spacing>
+                            <Button
+                                onClick="back"
+                                text="Back"
+                            />
+
+                            <Button
+                                mod="primary"
+                                onClick="save"
+                                disabled={expr('!{$page.valid}')}
+                                text="Save"
+                            />
+                        </FlexRow>
+                    </FlexCol>
+                </ValidationGroup>
             </Section>
         </div>
     </cx>
