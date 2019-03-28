@@ -1,50 +1,47 @@
-const webpack = require('webpack'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    merge = require('webpack-merge'),
-    path = require('path'),
+const
+    HtmlWebpackPlugin = require("html-webpack-plugin"),
+    InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin'),
+    path = require("path"),
     babelCfg = require("./babel.config"),
-    p = p => path.join(__dirname, '../', p || '')
+    p = p => path.join(__dirname, "../", p || "");
 
 module.exports = {
     resolve: {
         alias: {
-            app: p("app"),
+            app: p("app")
             //uncomment the line below to alias cx-react to cx-preact or some other React replacement library
             //'cx-react': 'cx-preact',
         }
     },
 
+   
     module: {
-        loaders: [{
-            test: /\.js$/,
-            //add here any ES6 based library
-            include: /(app|cx|cx-react|cx-theme-material)[\\\/]/,
-            loader: 'babel-loader',
-            query: babelCfg
-        }, {
-           test: /\.(png|jpg)/,
-           loader: 'file-loader'
-        }]
-    },
-    entry: {
-        vendor: ['cx-react', p('app/polyfill.js')],
-        app: [
-           p('app/index.js')
+        rules: [
+            {
+                test: /\.js$/,
+                //add here any ES6 based library
+                include: /[\\\/](app|cx|cx-react|cx-theme-material)[\\\/]/,
+                loader: "babel-loader",
+                query: babelCfg
+            },
+            {
+                test: /\.(png|jpg)/,
+                loader: "file-loader"
+            }
         ]
     },
-    output: {
-        path: p("dist"),
-        filename: "[name].js"
+    
+    entry: {
+        vendor: ["cx-react", p("app/polyfill.js")],
+        app: [p("app/index.js")]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor"
-        }),
         new HtmlWebpackPlugin({
-            template: p('app/index.html'),
-            hash: true
-        })
-    ]
+            template: p("app/index.html")
+        }),
+        new InlineManifestWebpackPlugin()
+    ],
+    optimization: {
+        runtimeChunk: 'single'
+    }
 };
-
-
