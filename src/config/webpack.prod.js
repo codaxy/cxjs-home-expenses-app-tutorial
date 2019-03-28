@@ -1,45 +1,49 @@
-var webpack = require('webpack'),
-   ExtractTextPlugin = require("extract-text-webpack-plugin"),
-   CopyWebpackPlugin = require('copy-webpack-plugin'),
-   merge = require('webpack-merge'),
-   common = require('./webpack.config'),
-path = require('path')
+const
+    webpack = require('webpack'),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin"),
+    CopyWebpackPlugin = require("copy-webpack-plugin"),
+    merge = require("webpack-merge"),
+    common = require("./webpack.config"),
+    path = require("path"),
+    p = p => path.join(__dirname, "../", p || "");
 
-var sass = new ExtractTextPlugin({
-   filename: "app.css",
-   allChunks: true
+module.exports = merge(common,  {
+    mode: 'production',
+
+    output: {
+        path: p("dist"),
+        publicPath: "/",
+        filename: "[name].[chunkhash].js",
+        chunkFilename: "[name].[chunkhash].js",
+        hashDigestLength: 6
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                loaders: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+            },
+            {
+                test: /\.css$/,
+                loaders: [MiniCssExtractPlugin.loader, "css-loader"]
+            }
+        ]
+    },
+
+    plugins: [
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": JSON.stringify("production")
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[name].[hash].css"
+        }),
+        new CopyWebpackPlugin([
+            {
+                from: p("./assets"),
+                to: p("./dist/assets")
+            }
+        ])
+    ]
 });
-
-var specific = {
-   module: {
-      loaders: [{
-         test: /\.scss$/,
-         loaders: sass.extract(['css-loader', 'sass-loader'])
-      }, {
-         test: /\.css$/,
-         loaders: sass.extract(['css-loader'])
-      }]
-   },
-
-   plugins: [
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.DefinePlugin({
-         'process.env.NODE_ENV': JSON.stringify('production')
-      }),
-      sass,
-      new CopyWebpackPlugin([{
-         from: path.join(__dirname, '../assets'),
-         to: path.join(__dirname, '../dist/assets'),
-      }, {
-          from: path.resolve(__dirname, './netlify.redirects'),
-          to: '_redirects',
-          toType: 'file'
-      }])
-   ],
-
-   output: {
-      publicPath: '/'
-   }
-};
-
-module.exports = merge(common, specific);
